@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/SQL/disconnected.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/SQL/guildjoined.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/SQL/guildleft.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/SQL/loops.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/SQL/musicqueue.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/SQL/pause.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/SQL/quotes.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/SQL/rockpaperscissors.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/SQL/skipped.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/SQL/text.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/SQL/voice.py" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/main.py" dialect="GenericSQL" />
+  </component>
+</project>
