@@ -115,16 +115,16 @@ async def voice_update(member, before, after):
             i = 0
             begintime = datetime.datetime.now()
             begintime_total = begintime.hour * 60 + begintime.minute
-            streamlist = await camera.read()
+            streamlist = await stream.read()
             while i < len(streamlist):
                 if streamlist[i]['userid'] == member.id and streamlist[i]['serverid'] == after.channel.guild.id:  # Checks if a user is already in the bot.leaderboardstreamlist
                     streamlist[i]['begintime'] = begintime_total
-                    await camera.update(streamlist[i]["userid"], streamlist[i]["begintime"], streamlist[i]["endtime"], streamlist[i]["score"], streamlist[i]["serverid"])
+                    await stream.update(streamlist[i]["userid"], streamlist[i]["begintime"], streamlist[i]["endtime"], streamlist[i]["score"], streamlist[i]["serverid"])
                     i = len(streamlist)
                 elif i == len(streamlist) - 1:  # If the code gets to the end of the list without finding the user, it adds the user to the list
                     streamlist.append({'userid': member.id, 'begintime': begintime_total, 'endtime': 0, 'score': 0, "serverid": after.channel.guild.id})
                     i += 1
-                    await camera.write(streamlist[i]["userid"], streamlist[i]["begintime"], streamlist[i]["endtime"], streamlist[i]["score"], streamlist[i]["serverid"])
+                    await stream.write(streamlist[i]["userid"], streamlist[i]["begintime"], streamlist[i]["endtime"], streamlist[i]["score"], streamlist[i]["serverid"])
                 else:
                     i += 1
         # If a user stops their camera, bot.leaderboardcamera will stop
