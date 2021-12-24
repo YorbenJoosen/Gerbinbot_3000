@@ -60,3 +60,37 @@ I use a config file to hide my tokens and system paths I use in my code.
 ### G!calculate + equation
 1) Description: Calculates your equation.
 2) Aliases: calc, calculator
+## Random
+### G!tutturu
+1) Description: Plays tutturu.
+2) Aliases: tuturu, tutturuu, tuturuu
+### G!gamedeals
+1) Description: Shows the current free games from the GameDeals subreddit.
+2) Aliases: Deals
+### G!copypasta
+1) Description: Sends a random copypasta from the copypasta subreddit.
+### G!meme
+1) Description: Sends a random meme.
+### G!gayrate
+1) Description: Shows your gay percentage.
+2) Aliases: gayness, gay
+### G!simprate
+1) Description: Shows your simp percentage.
+2) Aliases: simp
+### G!dicklength
+1) Description: Sends a dick with random length.
+2) Aliases: dick, dicksize
+### G!vaginawidth
+1) Description: Sends a vagina with random width.
+2) Aliases: vagina, vaginasize
+### G!boobsize
+1) Description: Sends a random boobsize.
+2) Aliases: boob
+### G!rps + Rock, Paper or Scissors
+1) Description: Play Rock, Paper, Scissors against the bot, until somebody wins 3 times.
+2) Aliases: rockpaperscissors, rock, paper, scissor (one thing)
+### G!coinflip
+1) Description: The bot flips a coin for you.
+2) Aliases: cointoss, toss
+### G!repeat + text
+1) Description: The bot repeats your message and deletes yours.
