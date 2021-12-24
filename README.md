@@ -9,15 +9,23 @@ I use a config file to hide my tokens and system paths I use in my code.
 ### G!pause
 1) Description: Pauses the queue.
 2) Aliases: pausemusic, stop
-3) G!resume: Resumes the queue.
-   Aliases: resumemusic, unpause
-4) G!disconnect: Disconnects the bot and clears the queue.
-   Aliases: leave
-5) G!skipto + position: Skips to the given position in the queue.
-7) G!skip: Skips to the next song.
-   Aliases: skipsong, next, nextsong
-7) G!queue: Shows all the songs in the queue.
-   Aliases: list, songs
-8) G!loopsong: Loops the song that is currently playing.
-9) G!loopqueue: Loops the whole queue.
-10) G!shuffle: Shuffles the queue.
+### G!resume
+1) Description: Resumes the queue.
+2) Aliases: resumemusic, unpause
+### G!disconnect
+1) Description: Disconnects the bot and clears the queue.
+2) Aliases: leave
+### G!skipto + position
+1) Description: Skips to the given position in the queue.
+### G!skip
+1) Description: Skips to the next song.
+2) Aliases: skipsong, next, nextsong
+### G!queue
+1) Description: Shows all the songs in the queue.
+2) Aliases: list, songs
+### G!loopsong
+1) Description: Loops the song that is currently playing.
+### G!loopqueue
+1) Description: Loops the whole queue.
+### G!shuffle
+1) Description: Shuffles the queue.
