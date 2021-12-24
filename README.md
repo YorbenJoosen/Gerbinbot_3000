@@ -4,6 +4,7 @@ I use a config file to hide my tokens and system paths I use in my code.
 # Commands
 ## Music
 1) G!play + youtube url/search query: Adds the given url/query to the queue.
+
    Aliases: search
 2) G!pause: Pauses the queue.
    Aliases: pausemusic, stop
