@@ -11,7 +11,7 @@ from Random import tutturu, gamedeals, copypasta, meme, gayrate, simprate, dickl
     repeat, rps
 from SQL import loops, musicqueue, pause, skipped, disconnected
 from Useful import password, info, helpcommands, leaderboardvoice, leaderboardtext, addquote, sendquotes, calculate, \
-    leaderboardcamera, leaderboardstream
+    leaderboardcamera, leaderboardstream, leaderboardzevensprong, addzevensprong
 
 discordtoken = config_file.bot_token
 intents = discord.Intents.all()
@@ -76,6 +76,16 @@ class Usefulcommands(commands.Cog):
     @commands.command(aliases=["stream"])
     async def leaderboardstream(self, ctx, *, user=None):
         await leaderboardstream.leaderboardstream(ctx, user)
+
+    # Prints the zevensprong leaderboard
+    @commands.command(aliases=["7sprong", "zevensprong", "zevesprong", "7"])
+    async def leaderboardzevensprong(self, ctx, *, user=None):
+        await leaderboardzevensprong.leaderboardzevensprong(ctx, user, bot)
+
+    # Adds a zevensprong amount to the leaderboard
+    @commands.command(aliases=["7add", "7sprongadd", "zeveadd", "zevenadd", "zevensprongadd", "zevesprongadd", "add7", "addzeven", "addzeve", "addzevesprong"])
+    async def addzevensprong(self, ctx, *, zevensprongstring):
+        await addzevensprong.addzevensprong(ctx, zevensprongstring)
 
     # Adds quotes to the database
     @commands.command(aliases=["quotesadd", "addquotes", "quoteadd"])
