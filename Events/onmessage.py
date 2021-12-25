@@ -59,7 +59,7 @@ async def sendmeme(author, channel, link):
 # Function to check how the bot should respond
 async def checkwordreaction(splitter, reactionemoji, messagestring, message, filename, reactionmessage):
     messagestring = messagestring.split(splitter)
-    spacepos1 = messagestring[0].find(' ')
+    spacepos1 = messagestring[0].find(' ', len(messagestring[0])-1)
     spacepos2 = messagestring[1].find(' ')
     if (messagestring[0] == '' or spacepos1 == len(messagestring[0]) - 1) and (
             messagestring[1] == '' or spacepos2 == 0):
@@ -107,7 +107,6 @@ async def onmessage(message):
             i += 1
     messagestring = message.content.lower()
     if 'execute order 69' in messagestring:
-
         userid = messagestring.split('execute order 69 ')[1]
         userid = userid.replace('@!', '')
         userid = userid.replace('<', '')
@@ -135,10 +134,14 @@ async def onmessage(message):
             await checkwordreaction('disgustang', 'None', messagestring, message,
                                     config_file.disgustang_path,
                                     'DISGUUUSTAAAN!!!!!')
+        elif 'cato' in messagestring:
+            await checkwordreaction('cato', 'None', messagestring, message, 'None', 'Catoe moet pottoe!')
         elif "didnt expect" in messagestring:
             await checkwordreaction('didnt expect', 'None', messagestring, message,
                                     config_file.spanish_inquisition_path,
                                     'Boom Spanish Inquisition.')
+        if 'catoe' == messagestring:
+            await checkwordreaction('catoe', 'None', messagestring, message, 'None', 'Catoe moet pottoe!')
         elif "did not expect" in messagestring:
             await checkwordreaction('did not expect', 'None', messagestring, message,
                                     config_file.spanish_inquisition_path,
