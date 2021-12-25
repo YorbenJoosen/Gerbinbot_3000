@@ -17,11 +17,13 @@ async def helpcommands(ctx):
                    '**3)** __G!leaderboardvoice__: Shows the current leaderboard of being in a voice channel.\n' +
                    '**4)** __G!leaderboardcamera__: Shows the current leaderboard of having your camera on.\n' +
                    '**5)** __G!leaderboardstream__: Shows the current leaderboard of streaming.\n' +
-                   '**6)** __G!time__: Gives you the current time and date.\n' +
-                   '**7)** __G!info__: Shows server info.\n' +
-                   '**8)** __G!addquote quote + @user__: Adds the quote to the database. \n' +
-                   '**9)** __G!quotes__: Sends the quotes that are already in the database. \n' +
-                   '**10)** __G!calculate + equation__: Calculates your equation.')
+                   '**6)** __G!leaderboardzevensprong__: Shows the current leaderboard of zevensprong amount.\n' +
+                   '**7)** __G!addzevensprong + amount + @user__: Adds the amount of zevensprongen to the user.\n' +
+                   '**8)** __G!time__: Gives you the current time and date.\n' +
+                   '**9)** __G!info__: Shows server info.\n' +
+                   '**10)** __G!addquote quote + @user__: Adds the quote to the database. \n' +
+                   '**11)** __G!quotes__: Sends the quotes that are already in the database. \n' +
+                   '**12)** __G!calculate + equation__: Calculates your equation.')
     await ctx.send('**__Random Commands__**\n' +
                    '**1)** __G!tutturu__: Plays tutturu.\n' +
                    '**2)** __G!gamedeals__: Shows the current free games in the subreddit GameDeals.\n' +
