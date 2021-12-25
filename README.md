@@ -47,6 +47,9 @@ I use a config file to hide my tokens and system paths I use in my code.
 ### G!leaderboardstream
 1) Description: Shows the leaderboard of streaming in minutes.
 2) Aliases: stream
+### G!leaderboardzevensprong
+1) Description: Shows the leaderboard of amount of zevensprongen.
+2) Aliases: 7sprong, zevensprong, zevesprong, 7
 ### G!time
 1) Description: Gives the current time and date.
 ### G!info
@@ -54,6 +57,9 @@ I use a config file to hide my tokens and system paths I use in my code.
 ### G!addquote + quote + @user
 1) Description: Adds the users quote to the database.
 2) Aliases: quotesadd, addquotes, quoteadd
+### G!addzevensprong + amount + @user
+1) Description: Adds the users amount of zevensprongen to the databse.
+2) Aliases: 7add, 7sprongadd, zeveadd, zevenadd, zevensprongadd, zevesprongadd, add7, addzeven, addzeve, addzevesprong
 ### G!quotes or G!quotes + @user
 1) Description: Sends all the quotes or the quotes from that user.
 2) Aliases: sendquotes, sendquote
