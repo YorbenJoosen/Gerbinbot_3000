@@ -1,3 +1,4 @@
+import discord
 from SQL import zevensprong
 
 
@@ -34,4 +35,5 @@ async def leaderboardzevensprong(ctx, user, bot):
                     membername = member.name
                     break
             string += str(i+1) + ") " + membername + ": " + str(zevenspronglist[i]["score"]) + "\n"
-        await ctx.send(string)
+        embed = discord.Embed(title='Zevensprong leaderboard', color=discord.Color.green(), description=string)
+        await ctx.send(embed=embed)

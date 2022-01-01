@@ -1,3 +1,4 @@
+import discord
 from SQL import stream
 
 
@@ -37,4 +38,5 @@ async def leaderboardstream(ctx, user):
                 if member.id == streamlist[i]["userid"]:
                     membername = member.display_name
             string += str(i+1) + ") " + membername + ": " + str(streamlist[i]["score"]) + "\n"
-        await ctx.send(string)
+        embed = discord.Embed(title='Streaming leaderboard', color=discord.Color.green(), description=string)
+        await ctx.send(embed=embed)

@@ -1,3 +1,4 @@
+import discord
 from SQL import voice
 
 
@@ -37,4 +38,5 @@ async def leaderboardvoice(ctx, user):
                 if member.id == voicelist[i]["userid"]:
                     membername = member.display_name
             string += str(i+1) + ") " + membername + ": " + str(voicelist[i]["score"]) + "\n"
-        await ctx.send(string)
+        embed = discord.Embed(title='Voice leaderboard', color=discord.Color.green(), description=string)
+        await ctx.send(embed=embed)

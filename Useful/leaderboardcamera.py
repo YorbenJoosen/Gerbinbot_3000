@@ -1,3 +1,4 @@
+import discord
 from SQL import camera
 
 
@@ -37,4 +38,5 @@ async def leaderboardcamera(ctx, user):
                 if member.id == cameralist[i]["userid"]:
                     membername = member.display_name
             string += str(i+1) + ") " + membername + ": " + str(cameralist[i]["score"]) + "\n"
-        await ctx.send(string)
+        embed = discord.Embed(title='Camera leaderboard', color=discord.Color.green(), description=string)
+        await ctx.send(embed=embed)

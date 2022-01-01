@@ -1,3 +1,4 @@
+import discord
 from SQL import text
 
 
@@ -37,4 +38,5 @@ async def leaderboardtext(ctx, user):
                 if member.id == textlist[i]["userid"]:
                     membername = member.display_name
             string += str(i+1) + ") " + membername + ": " + str(textlist[i]["score"]) + "\n"
-        await ctx.send(string)
+        embed = discord.Embed(title='Text leaderboard', color=discord.Color.green(), description=string)
+        await ctx.send(embed=embed)
