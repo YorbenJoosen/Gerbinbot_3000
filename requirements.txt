@@ -1,8 +1,6 @@
-git+https://github.com/Rapptz/discord.py
 aiohttp
 async-timeout
 discord~
-discord.py
 youtube-dl
 audioread
 youtube_search
@@ -11,3 +9,4 @@ google-api-python-client
 pyodbc
 redvid
 discord
+py-cord

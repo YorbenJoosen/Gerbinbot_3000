@@ -42,6 +42,7 @@ class Usefulcommands(commands.Cog):
     async def password(self, ctx, *, length):
         await password.password(ctx, length)
 
+
     # Gives back the time and date
     @commands.command()
     async def time(self, ctx):
