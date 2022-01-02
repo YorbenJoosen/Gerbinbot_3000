@@ -25,6 +25,8 @@ async def leaderboardtext(ctx, user):
                     iterator = len(textlist)
                 else:
                     iterator += 1
+        else:
+            await ctx.send(membername + " isn't on the text leaderboard yet.")
     else:
         while iterator < len(textlist):
             if textlist[iterator]["serverid"] == ctx.guild.id:

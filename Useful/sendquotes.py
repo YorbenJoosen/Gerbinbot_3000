@@ -1,3 +1,5 @@
+import discord
+
 from SQL import quotes
 
 
@@ -16,11 +18,11 @@ async def sendquotes(ctx, user):
             if member.id == int(userid):
                 membername = member.display_name
         if any(d['userid'] == int(userid) and d['serverid'] == ctx.guild.id for d in quotelist):
-            await ctx.send("These are the quotes for " + membername + ':')
             while iterator < len(quotelist):
                 if len(string) >= 2000:
                     string = string.replace(str(iterator) + ') ' + quotelist[iterator - 1]["quote"], '')
-                    await ctx.send(string)
+                    embed = discord.Embed(title=membername + 'quotes', color=discord.Color.green(), description=string)
+                    await ctx.send(embed=embed)
                     string = ''
                     iterator -= 1
                 elif quotelist[iterator]['serverid'] == ctx.guild.id and quotelist[iterator]['userid'] == int(userid):
@@ -31,17 +33,19 @@ async def sendquotes(ctx, user):
             if string:
                 if len(string) >= 2000:
                     string = string.replace(str(iterator - 2) + ') ' + quotelist[iterator - 1]["quote"], '')
-                await ctx.send(string)
+                embed = discord.Embed(title=membername + ' quotes', color=discord.Color.green(), description=string)
+                await ctx.send(embed=embed)
         else:
             await ctx.send(membername + " Doesn't have any quotes yet.")
     else:
         while iterator < len(quotelist):
-            if len(string) >= 2000:
+            if len(string) >= 4096:
                 for member in members:
                     if member.id == quotelist[iterator - 1]["userid"]:
                         membername = member.display_name
                 string = string.replace(str(iterator) + ') ' + quotelist[iterator - 1]["quote"] + " - " + membername, '')
-                await ctx.send(string)
+                embed = discord.Embed(title='All quotes', color=discord.Color.green(), description=string)
+                await ctx.send(embed=embed)
                 string = ''
                 iterator -= 1
             elif quotelist[iterator]['serverid'] == ctx.guild.id:
@@ -52,9 +56,10 @@ async def sendquotes(ctx, user):
                 iterator += 1
             else:
                 del quotelist[iterator]
-        if len(string) >= 2000:
+        if len(string) >= 4096:
             for member in members:
                 if member.id == quotelist[iterator - 1]["userid"]:
                     membername = member.display_name
             string = string.replace(str(iterator) + ') ' + quotelist[iterator - 1]["quote"] + " - " + membername, '')
-        await ctx.send(string)
+        embed = discord.Embed(title='All quotes', color=discord.Color.green(), description=string)
+        await ctx.send(embed=embed)

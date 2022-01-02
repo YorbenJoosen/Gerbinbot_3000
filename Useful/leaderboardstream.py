@@ -25,6 +25,8 @@ async def leaderboardstream(ctx, user):
                     iterator = len(streamlist)
                 else:
                     iterator += 1
+        else:
+            await ctx.send(membername + " isn't on the streaming leaderboard yet.")
     else:
         while iterator < len(streamlist):
             if streamlist[iterator]["serverid"] == ctx.guild.id:

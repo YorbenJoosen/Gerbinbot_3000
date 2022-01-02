@@ -25,6 +25,8 @@ async def leaderboardcamera(ctx, user):
                     iterator = len(cameralist)
                 else:
                     iterator += 1
+        else:
+            await ctx.send(membername + " isn't on the camera leaderboard yet.")
     else:
         while iterator < len(cameralist):
             if cameralist[iterator]["serverid"] == ctx.guild.id:

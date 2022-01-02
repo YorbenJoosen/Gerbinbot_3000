@@ -25,6 +25,8 @@ async def leaderboardzevensprong(ctx, user, bot):
                 iterator = len(zevenspronglist)
             else:
                 iterator += 1
+        else:
+            await ctx.send(membername + " isn't on the zevensprong leaderboard yet.")
     else:
         string += 7*":beer:" + "\n"
         if len(zevenspronglist) < 10:

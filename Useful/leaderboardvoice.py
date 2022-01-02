@@ -25,6 +25,8 @@ async def leaderboardvoice(ctx, user):
                     iterator = len(voicelist)
                 else:
                     iterator += 1
+        else:
+            await ctx.send(membername + " isn't on the voice leaderboard yet.")
     else:
         while iterator < len(voicelist):
             if voicelist[iterator]["serverid"] == ctx.guild.id:
