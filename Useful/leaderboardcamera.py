@@ -23,6 +23,8 @@ async def leaderboardcamera(ctx, user):
                 if cameralist[iterator]['userid'] == int(userid) and cameralist[iterator]['serverid'] == ctx.guild.id:
                     await ctx.send(str(iterator + 1) + ") " + membername + ': ' + str(cameralist[iterator]['score']))
                     iterator = len(cameralist)
+                elif cameralist[iterator]['serverid'] != ctx.guild.id:
+                    del cameralist[iterator]
                 else:
                     iterator += 1
         else:

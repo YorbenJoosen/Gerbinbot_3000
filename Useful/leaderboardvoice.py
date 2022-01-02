@@ -23,6 +23,8 @@ async def leaderboardvoice(ctx, user):
                 if voicelist[iterator]['userid'] == int(userid) and voicelist[iterator]['serverid'] == ctx.guild.id:
                     await ctx.send(str(iterator + 1) + ") " + membername + ': ' + str(voicelist[iterator]['score']))
                     iterator = len(voicelist)
+                elif voicelist[iterator]['serverid'] != ctx.guild.id:
+                    del voicelist[iterator]
                 else:
                     iterator += 1
         else:

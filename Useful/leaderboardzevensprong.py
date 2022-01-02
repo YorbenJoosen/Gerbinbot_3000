@@ -23,6 +23,8 @@ async def leaderboardzevensprong(ctx, user, bot):
             if zevenspronglist[iterator]['userid'] == int(userid):
                 await ctx.send(str(iterator + 1) + ") " + membername + ': ' + str(zevenspronglist[iterator]['score']))
                 iterator = len(zevenspronglist)
+            elif zevenspronglist[iterator]['serverid'] != ctx.guild.id:
+                del zevenspronglist[iterator]
             else:
                 iterator += 1
         else:

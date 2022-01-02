@@ -23,6 +23,8 @@ async def leaderboardtext(ctx, user):
                 if textlist[iterator]['userid'] == int(userid) and textlist[iterator]['serverid'] == ctx.guild.id:
                     await ctx.send(str(iterator + 1) + ") " + membername + ': ' + str(textlist[iterator]['score']))
                     iterator = len(textlist)
+                elif textlist[iterator]['serverid'] != ctx.guild.id:
+                    del textlist[iterator]
                 else:
                     iterator += 1
         else:

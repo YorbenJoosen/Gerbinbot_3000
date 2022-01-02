@@ -23,6 +23,8 @@ async def leaderboardstream(ctx, user):
                 if streamlist[iterator]['userid'] == int(userid) and streamlist[iterator]['serverid'] == ctx.guild.id:
                     await ctx.send(str(iterator + 1) + ") " + membername + ': ' + str(streamlist[iterator]['score']))
                     iterator = len(streamlist)
+                elif streamlist[iterator]['serverid'] != ctx.guild.id:
+                    del streamlist[iterator]
                 else:
                     iterator += 1
         else:
