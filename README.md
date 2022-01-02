@@ -1,5 +1,5 @@
 # General
-This is my selfmade Discord bot. If you have any questions, bugs or ideas to improve it, please open a new issue.
+This is my selfmade Discord bot. I use the pycord library. If you have any questions, bugs or ideas to improve it, please open a new issue.
 I use a config file to hide my tokens and system paths I use in my code.
 # Commands
 ## Music
