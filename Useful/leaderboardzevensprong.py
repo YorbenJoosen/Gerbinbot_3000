@@ -19,12 +19,13 @@ async def leaderboardzevensprong(ctx, user, bot):
             if member.id == int(userid):
                 membername = member.name
                 break
-        while iterator < len(zevenspronglist):
-            if zevenspronglist[iterator]['userid'] == int(userid):
-                await ctx.send(str(iterator + 1) + ") " + membername + ': ' + str(zevenspronglist[iterator]['score']))
-                iterator = len(zevenspronglist)
-            else:
-                iterator += 1
+        if any(d['userid'] == int(userid)for d in zevenspronglist):
+            while iterator < len(zevenspronglist):
+                if zevenspronglist[iterator]['userid'] == int(userid):
+                    await ctx.send(str(iterator + 1) + ") " + membername + ': ' + str(zevenspronglist[iterator]['score']))
+                    iterator = len(zevenspronglist)
+                else:
+                    iterator += 1
         else:
             await ctx.send(membername + " isn't on the zevensprong leaderboard yet.")
     else:
