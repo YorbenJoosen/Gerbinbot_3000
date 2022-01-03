@@ -61,7 +61,6 @@ async def checkwordreaction(splitter, reactionemoji, messagestring, message, fil
     messagestring = messagestring.split(splitter)
     spacepos1 = messagestring[0].find(' ', len(messagestring[0])-1)
     spacepos2 = messagestring[1].find(' ')
-    print(messagestring)
     if (messagestring[0] == '' or spacepos1 == len(messagestring[0]) - 1) and (
             messagestring[1] == '' or spacepos2 == 0):
         if reactionemoji != 'None':
@@ -190,7 +189,7 @@ async def onmessage(message):
                                     config_file.but_path, 'None')
         elif "im " in messagestring:
             messagestring = messagestring.split('im')
-            spacepos1 = messagestring[0].find(' ')
+            spacepos1 = messagestring[0].find(' ', len(messagestring[0])-1)
             spacepos2 = messagestring[1].find(' ')
             if (messagestring[0] == '' or spacepos1 == len(messagestring[0]) - 1) and spacepos2 == 0:
                 await message.channel.send('Hello' + messagestring[1] + ", I'm dad")
@@ -218,7 +217,7 @@ async def onmessage(message):
             await checkwordreaction('hekkie', 'None', messagestring, message, config_file.hekkie_gif_path, 'None')
             messagestring = messagestring.split('hekkie')
             # Finds the locations of the spaces
-            spacepos1 = messagestring[0].find(' ')
+            spacepos1 = messagestring[0].find(' ', len(messagestring[0])-1)
             spacepos2 = messagestring[1].find(' ')
             if (messagestring[0] == '' or spacepos1 == len(messagestring[0]) - 1) and (messagestring[1] == '' or spacepos2 == 0):  # Checks if the words that we want are not between other letters
                 voice_state = message.author.voice
@@ -235,7 +234,7 @@ async def onmessage(message):
             await checkwordreaction('brain', 'None', messagestring, message, config_file.brain_aneurysm_mp4_path, 'None')
             messagestring = messagestring.split('brain')
             # Finds the locations of the spaces
-            spacepos1 = messagestring[0].find(' ')
+            spacepos1 = messagestring[0].find(' ', len(messagestring[0])-1)
             spacepos2 = messagestring[1].find(' ')
             if (messagestring[0] == '' or spacepos1 == len(messagestring[0]) - 1) and (
                     messagestring[
@@ -253,7 +252,7 @@ async def onmessage(message):
         elif 'john cena' in messagestring:
             messagestring = messagestring.split('john cena')
             # Finds the locations of the spaces
-            spacepos1 = messagestring[0].find(' ')
+            spacepos1 = messagestring[0].find(' ', len(messagestring[0])-1)
             spacepos2 = messagestring[1].find(' ')
             if (messagestring[0] == '' or spacepos1 == len(messagestring[0]) - 1) and (
                     messagestring[
