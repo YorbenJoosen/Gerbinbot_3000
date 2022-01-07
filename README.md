@@ -66,6 +66,8 @@ I use a config file to hide my tokens and system paths I use in my code.
 ### G!calculate + equation
 1) Description: Calculates your equation.
 2) Aliases: calc, calculator
+### !react + reaction
+1) Description: Reply with this to a message and the bot will react your reaction with emojis to that message.
 ## Random
 ### G!tutturu
 1) Description: Plays tutturu.
