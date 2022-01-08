@@ -218,13 +218,9 @@ async def onmessage(message, emojiguild):
         elif 'elektrocutie' in messagestring:
             await checkwordreaction('elektrocutie', 'None', messagestring, message,
                                     config_file.pikachu_path, 'None')
-        elif 'hekkie' or '#' in messagestring:
-            if 'hekkie' in messagestring:
-                await checkwordreaction('hekkie', 'None', messagestring, message, config_file.hekkie_gif_path, 'None')
-                messagestring = messagestring.split('hekkie')
-            else:
-                await checkwordreaction('#', 'None', messagestring, message, config_file.hekkie_gif_path, 'None')
-                messagestring = messagestring.split('#')
+        elif 'hekkie' in messagestring:
+            await checkwordreaction('hekkie', 'None', messagestring, message, config_file.hekkie_gif_path, 'None')
+            messagestring = messagestring.split('hekkie')
             # Finds the locations of the spaces
             spacepos1 = messagestring[0].find(' ', len(messagestring[0])-1)
             spacepos2 = messagestring[1].find(' ')
