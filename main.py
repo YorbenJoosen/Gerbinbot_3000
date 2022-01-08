@@ -249,7 +249,8 @@ async def on_voice_state_update(member: discord.Member, before, after):
 
 @bot.event
 async def on_message(message):
-    await onmessage.onmessage(message)
+    emojiguild = bot.get_guild(config_file.emojiguildid)
+    await onmessage.onmessage(message, emojiguild)
     await bot.process_commands(message)
 
 

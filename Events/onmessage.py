@@ -74,9 +74,9 @@ async def checkwordreaction(splitter, reactionemoji, messagestring, message, fil
             await message.channel.send(file=discord.File(filename))
 
 
-async def onmessage(message):
+async def onmessage(message, emojiguild):
     if discord.MessageType.reply and '!react' in message.content:
-        await reactcommand.reactcommand(message)
+        await reactcommand.reactcommand(message, emojiguild)
     textlist = await text.read()
     # If the bot sees a reddit link in a message, it will try to send the image from this post
     if 'reddit.com' in message.content and not message.author.bot:
