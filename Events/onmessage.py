@@ -11,6 +11,9 @@ from SQL import text
 
 
 # Downloads the reddit video
+from Useful import reactcommand
+
+
 async def downloadreddit(url, channel, link):
     reddit = Downloader(max_q=True, path=config_file.tempfile_path)
     reddit.log = False
@@ -73,147 +76,7 @@ async def checkwordreaction(splitter, reactionemoji, messagestring, message, fil
 
 async def onmessage(message):
     if discord.MessageType.reply and '!react' in message.content:
-        channel = message.channel
-        content = message.content.split(' ')
-        if len(content) > 1:
-            try:
-                referenceid = message.reference.message_id
-                reference = await channel.fetch_message(referenceid)
-                await message.delete()
-                content = content[1]
-                content = content.lower()
-                if len(content) > 20:
-                    length = 20
-                else:
-                    length = len(content)
-                a = 0
-                b = 0
-                c = 0
-                i = 0
-                m = 0
-                o = 0
-                p = 0
-                r = 0
-                t = 0
-                x = 0
-                for iterator in range(0, length):
-                    character = content[iterator]
-                    if character == 'a':
-                        if a == 0:
-                            await reference.add_reaction('🇦')
-                            a += 1
-                        elif a == 1:
-                            await reference.add_reaction('🅰️')
-                            a += 1
-                    elif character == 'b':
-                        if b == 0:
-                            await reference.add_reaction('🇧')
-                            b += 1
-                        elif b == 1:
-                            await reference.add_reaction('🅱️')
-                            b += 1
-                    elif character == 'c':
-                        if c == 0:
-                            await reference.add_reaction('🇨')
-                            c += 1
-                        elif c == 1:
-                            await reference.add_reaction('©️')
-                            c += 1
-                    elif character == 'd':
-                        await reference.add_reaction('🇩')
-                    elif character == 'e':
-                        await reference.add_reaction('🇪')
-                    elif character == 'f':
-                        await reference.add_reaction('🇫')
-                    elif character == 'g':
-                        await reference.add_reaction('🇬')
-                    elif character == 'h':
-                        await reference.add_reaction('🇭')
-                    elif character == 'i':
-                        if i == 0:
-                            await reference.add_reaction('🇮')
-                            i += 1
-                        elif i == 1:
-                            await reference.add_reaction('ℹ️')
-                            i += 1
-                    elif character == 'j':
-                        await reference.add_reaction('🇯')
-                    elif character == 'k':
-                        await reference.add_reaction('🇰')
-                    elif character == 'l':
-                        await reference.add_reaction('🇱')
-                    elif character == 'm':
-                        if m == 0:
-                            await reference.add_reaction('🇲')
-                            m += 1
-                        elif m == 1:
-                            await reference.add_reaction('Ⓜ️')
-                            m += 1
-                        elif m == 2:
-                            await reference.add_reaction('〽️')
-                            m += 1
-                    elif character == 'n':
-                        await reference.add_reaction('🇳')
-                    elif character == 'o':
-                        if o == 0:
-                            await reference.add_reaction('🇴')
-                            o += 1
-                        elif o == 1:
-                            await reference.add_reaction('🅾️')
-                            o += 1
-                        elif o == 2:
-                            await reference.add_reaction('⭕')
-                            o += 1
-                    elif character == 'p':
-                        if p == 0:
-                            await reference.add_reaction('🇵')
-                            p += 1
-                        elif p == 1:
-                            await reference.add_reaction('🅿️')
-                            p += 1
-                    elif character == 'q':
-                        await reference.add_reaction('🇶')
-                    elif character == 'r':
-                        if r == 0:
-                            await reference.add_reaction('🇷')
-                            r += 1
-                        elif r == 1:
-                            await reference.add_reaction('®️')
-                            r += 1
-                    elif character == 's':
-                        await reference.add_reaction('🇸')
-                    elif character == 't':
-                        if t == 0:
-                            await reference.add_reaction('🇹')
-                            t += 1
-                        elif t == 1:
-                            await reference.add_reaction('✝️')
-                            t += 1
-                    elif character == 'u':
-                        await reference.add_reaction('🇺')
-                    elif character == 'v':
-                        await reference.add_reaction('🇻')
-                    elif character == 'w':
-                        await reference.add_reaction('🇼')
-                    elif character == 'x':
-                        if x == 0:
-                            await reference.add_reaction('🇽')
-                            x += 1
-                        elif x == 1:
-                            await reference.add_reaction('✖️')
-                            x += 1
-                        elif x == 2:
-                            await reference.add_reaction('❎')
-                            x += 1
-                        elif x == 3:
-                            await reference.add_reaction('❌')
-                            x += 1
-                    elif character == 'y':
-                        await reference.add_reaction('🇾')
-                    elif character == 'z':
-                        await reference.add_reaction('🇿')
-            except AttributeError:
-                return
+        await reactcommand.reactcommand(message)
     textlist = await text.read()
     # If the bot sees a reddit link in a message, it will try to send the image from this post
     if 'reddit.com' in message.content and not message.author.bot:
