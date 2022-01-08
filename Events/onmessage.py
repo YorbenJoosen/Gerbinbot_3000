@@ -94,6 +94,7 @@ async def onmessage(message):
                 o = 0
                 p = 0
                 r = 0
+                t = 0
                 x = 0
                 for iterator in range(0, length):
                     character = content[iterator]
@@ -182,7 +183,12 @@ async def onmessage(message):
                     elif character == 's':
                         await reference.add_reaction('🇸')
                     elif character == 't':
-                        await reference.add_reaction('🇹')
+                        if t == 0:
+                            await reference.add_reaction('🇹')
+                            t += 1
+                        elif t == 1:
+                            await reference.add_reaction('✝️')
+                            t += 1
                     elif character == 'u':
                         await reference.add_reaction('🇺')
                     elif character == 'v':
