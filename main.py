@@ -68,7 +68,7 @@ class Usefulcommands(commands.Cog):
         await leaderboardtext.leaderboardtext(ctx, user)
 
     # Prints the camera leaderboard
-    @commands.command(aliases=["camera"])
+    @commands.command(aliases=["camera", 'cam'])
     async def leaderboardcamera(self, ctx, *, user=None):
         await leaderboardcamera.leaderboardcamera(ctx, user)
 
