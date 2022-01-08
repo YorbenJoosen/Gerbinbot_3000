@@ -43,7 +43,7 @@ I use a config file to hide my tokens and system paths I use in my code.
 2) Aliases: voice
 ### G!leaderboardcamera
 1) Description: Shows the leaderboard of havong your camera on in minutes.
-2) Aliases: camera
+2) Aliases: camera, cam
 ### G!leaderboardstream
 1) Description: Shows the leaderboard of streaming in minutes.
 2) Aliases: stream
