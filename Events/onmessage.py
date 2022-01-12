@@ -291,5 +291,23 @@ async def onmessage(message, emojiguild):
                                     config_file.john_cena_path) as f:
                                 await asyncio.sleep(f.duration)
                             await vc.disconnect()
+            elif 'buffalo' in messagestring:
+                messagestring = messagestring.split('buffalo')
+                # Finds the locations of the spaces
+                spacepos1 = messagestring[0].find(' ', len(messagestring[0]) - 1)
+                spacepos2 = messagestring[1].find(' ')
+                if (messagestring[0] == '' or spacepos1 == len(messagestring[0]) - 1) and (
+                        messagestring[
+                            1] == '' or spacepos2 == 0):  # Checks if the words that we want are not between other letters
+                    voice_state = message.author.voice
+                    if message.guild.voice_client is None:  # Checks if the bot is not already in a channel
+                        if voice_state:  # Checks if the user is in a channel
+                            vc = await message.author.voice.channel.connect()
+                            vc.play(discord.FFmpegPCMAudio(
+                                source=config_file.buffalo_path))
+                            with audioread.audio_open(
+                                    config_file.buffalo_path) as f:
+                                await asyncio.sleep(f.duration)
+                            await vc.disconnect()
         else:
             return
