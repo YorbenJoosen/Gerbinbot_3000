@@ -1,4 +1,6 @@
 import json
+import random
+
 import config_file
 import discord
 import audioread
@@ -68,10 +70,12 @@ async def checkwordreaction(splitter, reactionemoji, messagestring, message, fil
             messagestring[1] == '' or spacepos2 == 0):
         if reactionemoji != 'None':
             await message.add_reaction(reactionemoji)
-        if reactionmessage != 'None':
-            await message.channel.send(reactionmessage)
-        if filename != 'None':
-            await message.channel.send(file=discord.File(filename))
+        if reactionmessage != 'None' and filename != 'None':
+            await message.reply(reactionmessage, file=discord.File(filename))
+        elif reactionmessage != 'None':
+            await message.reply(reactionmessage)
+        elif filename != 'None':
+            await message.reply(file=discord.File(filename))
 
 
 async def onmessage(message, emojiguild):
@@ -220,6 +224,9 @@ async def onmessage(message, emojiguild):
             elif 'elektrocutie' in messagestring:
                 await checkwordreaction('elektrocutie', 'None', messagestring, message,
                                         config_file.pikachu_path, 'None')
+            elif 'pauze' in messagestring:
+                if random.randint(0, 10) <= 1:
+                    await checkwordreaction('pauze', 'None', messagestring, message, 'None', 'Is het een pauze als hij niet uitloopt?')
             elif 'hekkie' in messagestring:
                 await checkwordreaction('hekkie', 'None', messagestring, message, config_file.hekkie_gif_path, 'None')
                 messagestring = messagestring.split('hekkie')
