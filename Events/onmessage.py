@@ -110,3 +110,5 @@ async def onmessage(message, emojiguild):
             await messagereply.messagereply(message, messagestring)
         else:
             return
+    else:
+        return
