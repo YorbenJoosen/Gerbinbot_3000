@@ -2,12 +2,13 @@ import discord
 import audioread
 import asyncio
 import config_file
-from SQL import loops, musicqueue, skipped
+from SQL import loops, musicqueue, skipped, turnonoff
 from Music import playvideo
 
 
 async def skip(ctx):
     serverid = ctx.guild.id
+    doeidruif = await turnonoff.read(serverid, 'doeidruif')
     musiclist = await musicqueue.read(serverid)
     song = await loops.read("song", serverid)
     queue = await loops.read("queue", serverid)
@@ -28,9 +29,10 @@ async def skip(ctx):
             elif len(musiclist) == 1 and song == 0:
                 ctx.voice_client.stop()
                 await skipped.update(1, serverid)
-                ctx.voice_client.play(discord.FFmpegPCMAudio(source=config_file.doei_druif_path))
-                with audioread.audio_open(config_file.doei_druif_path) as f:
-                    await asyncio.sleep(f.duration)
+                if doeidruif == 1:
+                    ctx.voice_client.play(discord.FFmpegPCMAudio(source=config_file.doei_druif_path))
+                    with audioread.audio_open(config_file.doei_druif_path) as f:
+                        await asyncio.sleep(f.duration)
                 await ctx.voice_client.disconnect()
                 await musicqueue.delete(serverid)
             elif len(musiclist) == 1 and song == 1:

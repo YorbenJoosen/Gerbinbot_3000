@@ -11,7 +11,7 @@ from Random import tutturu, gamedeals, copypasta, meme, gayrate, simprate, dickl
     repeat, rps
 from SQL import loops, musicqueue, pause, skipped, disconnected
 from Useful import password, info, helpcommands, leaderboardvoice, leaderboardtext, addquote, sendquotes, calculate, \
-    leaderboardcamera, leaderboardstream, leaderboardzevensprong, addzevensprong
+    leaderboardcamera, leaderboardstream, leaderboardzevensprong, addzevensprong, turnoff, turnon
 
 discordtoken = config_file.bot_token
 intents = discord.Intents.all()
@@ -100,6 +100,16 @@ class Usefulcommands(commands.Cog):
     @commands.command(aliases=["calc", "calculator"])
     async def calculate(self, ctx, *, calculation):
         await calculate.calculate(ctx, calculation)
+
+    # Used to turn off certain functions
+    @commands.command(aliases=["off"])
+    async def turnoff(self, ctx, *, option):
+        await turnoff.turnoff(ctx, option)
+
+    # Used to turn on certain options
+    @commands.command(aliases=["on"])
+    async def turnon(self, ctx, *, option):
+        await turnon.turnon(ctx, option)
 
 
 class Randomcommands(commands.Cog):

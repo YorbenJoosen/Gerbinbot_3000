@@ -6,3 +6,4 @@ async def guildjoin(guild):
     await guildjoined.skip(guild)
     await guildjoined.loops(guild)
     await guildjoined.pause(guild)
+    await guildjoined.turnonoff(guild)

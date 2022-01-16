@@ -2,7 +2,7 @@ import audioread
 import asyncio
 import discord
 import config_file
-from SQL import loops, musicqueue, skipped
+from SQL import loops, musicqueue, skipped, turnonoff
 from Music import playvideo
 
 
@@ -12,6 +12,7 @@ async def skipto(ctx, number):
     song = await loops.read("song", serverid)
     queue = await loops.read("queue", serverid)
     voice_state = ctx.author.voice
+    doeidruif = await turnonoff.read(serverid, 'doeidruif')
     if ctx.voice_client:
         if voice_state and ctx.author.voice.channel == ctx.voice_client.channel:
             if len(musiclist) > 1 and song == 0:
@@ -29,9 +30,10 @@ async def skipto(ctx, number):
                 await playvideo.playvideo(ctx)
             elif len(musiclist) == 1 and song == 0:
                 ctx.voice_client.stop()
-                ctx.voice_client.play(discord.FFmpegPCMAudio(source=config_file.doei_druif_path))
-                with audioread.audio_open(config_file.doei_druif_path) as f:
-                    await asyncio.sleep(f.duration)
+                if doeidruif == 1:
+                    ctx.voice_client.play(discord.FFmpegPCMAudio(source=config_file.doei_druif_path))
+                    with audioread.audio_open(config_file.doei_druif_path) as f:
+                        await asyncio.sleep(f.duration)
                 await ctx.voice_client.disconnect()
             elif len(musiclist) == 1 and song == 1:
                 await ctx.send("The current song is in a loop, you can't skip this.")

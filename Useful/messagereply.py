@@ -7,6 +7,9 @@ import config_file
 
 
 # Function to check how the bot should respond
+from SQL import turnonoff
+
+
 async def checkwordreaction(splitter, reactionemoji, messagestring, message, filename, reactionmessage):
     messagestring = messagestring.split(splitter)
     spacepos1 = messagestring[0].find(' ', len(messagestring[0])-1)
@@ -24,6 +27,11 @@ async def checkwordreaction(splitter, reactionemoji, messagestring, message, fil
 
 
 async def messagereply(message, messagestring):
+    johncena = await turnonoff.read(message.guild.id, "johncena")
+    brain = await turnonoff.read(message.guild.id, "brain")
+    hekkie = await turnonoff.read(message.guild.id, "hekkie")
+    buffalo = await turnonoff.read(message.guild.id, "buffalo")
+    dad = await turnonoff.read(message.guild.id, "dad")
     if 'creeper' in messagestring:
         await checkwordreaction('creeper', 'None', messagestring, message, 'None', 'OW MAN')
     elif 'ah fuck' in messagestring:
@@ -94,7 +102,7 @@ async def messagereply(message, messagestring):
     elif 'cute' in messagestring:
         await checkwordreaction('cute', 'None', messagestring, message,
                                 config_file.but_path, 'None')
-    elif "im " in messagestring:
+    elif "im " in messagestring and dad == 1:
         messagestring = messagestring.split('im')
         spacepos1 = messagestring[0].find(' ', len(messagestring[0]) - 1)
         spacepos2 = messagestring[1].find(' ')
@@ -132,7 +140,7 @@ async def messagereply(message, messagestring):
         spacepos2 = messagestring[1].find(' ')
         if (messagestring[0] == '' or spacepos1 == len(messagestring[0]) - 1) and (messagestring[1] == '' or spacepos2 == 0):  # Checks if the words that we want are not between other letters
             voice_state = message.author.voice
-            if message.guild.voice_client is None:  # Checks if the bot is not already in a channel
+            if message.guild.voice_client is None and hekkie == 1:  # Checks if the bot is not already in a channel
                 if voice_state:  # Checks if the user is in a channel
                     vc = await message.author.voice.channel.connect()
                     vc.play(discord.FFmpegPCMAudio(
@@ -150,7 +158,7 @@ async def messagereply(message, messagestring):
         if (messagestring[0] == '' or spacepos1 == len(messagestring[0]) - 1) and (messagestring[
                                                                                        1] == '' or spacepos2 == 0):  # Checks if the words that we want are not between other letters
             voice_state = message.author.voice
-            if message.guild.voice_client is None:  # Checks if the bot is not already in a channel
+            if message.guild.voice_client is None and hekkie == 1:  # Checks if the bot is not already in a channel
                 if voice_state:  # Checks if the user is in a channel
                     vc = await message.author.voice.channel.connect()
                     vc.play(discord.FFmpegPCMAudio(
@@ -169,7 +177,7 @@ async def messagereply(message, messagestring):
                 messagestring[
                     1] == '' or spacepos2 == 0):  # Checks if the words that we want are not between other letters
             voice_state = message.author.voice
-            if message.guild.voice_client is None:  # Checks if the bot is not already in a channel
+            if message.guild.voice_client is None and brain == 1:  # Checks if the bot is not already in a channel
                 if voice_state:  # Checks if the user is in a channel
                     vc = await message.author.voice.channel.connect()
                     vc.play(discord.FFmpegPCMAudio(
@@ -187,7 +195,7 @@ async def messagereply(message, messagestring):
                 messagestring[
                     1] == '' or spacepos2 == 0):  # Checks if the words that we want are not between other letters
             voice_state = message.author.voice
-            if message.guild.voice_client is None:  # Checks if the bot is not already in a channel
+            if message.guild.voice_client is None and johncena == 1:  # Checks if the bot is not already in a channel
                 if voice_state:  # Checks if the user is in a channel
                     vc = await message.author.voice.channel.connect()
                     vc.play(discord.FFmpegPCMAudio(
@@ -205,7 +213,7 @@ async def messagereply(message, messagestring):
                 messagestring[
                     1] == '' or spacepos2 == 0):  # Checks if the words that we want are not between other letters
             voice_state = message.author.voice
-            if message.guild.voice_client is None:  # Checks if the bot is not already in a channel
+            if message.guild.voice_client is None and buffalo == 1:  # Checks if the bot is not already in a channel
                 if voice_state:  # Checks if the user is in a channel
                     vc = await message.author.voice.channel.connect()
                     vc.play(discord.FFmpegPCMAudio(

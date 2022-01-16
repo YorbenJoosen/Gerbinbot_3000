@@ -36,3 +36,13 @@ async def skip(guild):
     command = "delete from skipped where serverid = ?"
     sql_cursor.execute(command, serverid)
     sql_connection.commit()
+
+
+async def turnonoff(guild):
+    for what in config_file.functions:
+        serverid = guild.id
+        sql_connection = pyodbc.connect(config_file.sql_connection_string)
+        sql_cursor = sql_connection.cursor()
+        command = "delete from turnonoff where idserver = ? and what = ?"
+        sql_cursor.execute(command, serverid, what)
+        sql_connection.commit()

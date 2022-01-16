@@ -3,12 +3,13 @@ import audioread
 import asyncio
 import config_file
 from Music import playvideo
-from SQL import musicqueue, loops, pause, skipped, disconnected
+from SQL import musicqueue, loops, pause, skipped, disconnected, turnonoff
 
 
 async def disconnect(ctx):
     serverid = ctx.guild.id
     voice_state = ctx.author.voice
+    doeidruif = await turnonoff.read(serverid, 'doeidruif')
     if ctx.voice_client:
         if voice_state and ctx.author.voice.channel == ctx.voice_client.channel:
             await skipped.update(0, serverid)
@@ -19,9 +20,10 @@ async def disconnect(ctx):
             await pause.update(0, serverid)
             await disconnected.update(1, serverid)
             playvideo.sleeptask.cancel()
-            ctx.voice_client.play(discord.FFmpegPCMAudio(source=config_file.doei_druif_path))
-            with audioread.audio_open(config_file.doei_druif_path) as f:
-                await asyncio.sleep(f.duration)
+            if doeidruif == 1:
+                ctx.voice_client.play(discord.FFmpegPCMAudio(source=config_file.doei_druif_path))
+                with audioread.audio_open(config_file.doei_druif_path) as f:
+                    await asyncio.sleep(f.duration)
             await ctx.voice_client.disconnect()
             await disconnected.update(0, serverid)
         elif voice_state is None:

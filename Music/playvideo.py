@@ -3,7 +3,7 @@ import audioread
 import discord
 import youtube_dl
 import config_file
-from SQL import musicqueue, loops, skipped, disconnected
+from SQL import musicqueue, loops, skipped, disconnected, turnonoff
 
 ytdl_format_options = {
     'format': 'bestaudio/best',
@@ -63,6 +63,7 @@ async def playvideo(ctx):
     global sleeptask
     serverid = ctx.guild.id
     musiclist = await musicqueue.read(serverid)
+    doeidruif = await turnonoff.read(serverid, 'doeidruif')
     if ctx.voice_client is None:
         await ctx.author.voice.channel.connect()
     while len(musiclist) > 0:
@@ -89,8 +90,8 @@ async def playvideo(ctx):
         musiclist = await musicqueue.read(serverid)
     if await disconnected.read(serverid) == 0:
         ctx.voice_client.stop()
-        ctx.voice_client.play(
-            discord.FFmpegPCMAudio(source=config_file.doei_druif_path))
-        with audioread.audio_open(config_file.doei_druif_path) as f:
-            await asyncio.sleep(f.duration)
+        if doeidruif == 1:
+            ctx.voice_client.play(discord.FFmpegPCMAudio(source=config_file.doei_druif_path))
+            with audioread.audio_open(config_file.doei_druif_path) as f:
+                await asyncio.sleep(f.duration)
         await ctx.voice_client.disconnect()
