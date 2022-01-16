@@ -48,6 +48,6 @@ async def turnonoff(guild):
         sql_connection = pyodbc.connect(config_file.sql_connection_string)
         sql_cursor = sql_connection.cursor()
         command = "insert into turnonoff (idserver, what, value) values (?, ?, ?)"
-        values = (1, serverid, what)
+        values = (serverid, what, 1)
         sql_cursor.execute(command, values)
         sql_connection.commit()
