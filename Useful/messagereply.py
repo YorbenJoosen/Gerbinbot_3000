@@ -118,8 +118,8 @@ async def messagereply(message, messagestring):
             await message.channel.send('Hello' + messagestring[1] + ", I'm dad")
     elif 'hello there' in messagestring:
         variable = await turnonoff.read(message.guild.id, "hellothere")
-        await checkwordreaction('hello there', 'None', messagestring, message,config_file.general_kenobi_path, 'General Kenobi')
-        await checksoundreaction('cola', messagestring, message, config_file.cola_path, variable)
+        await checkwordreaction('hello there', 'None', messagestring, message, config_file.general_kenobi_path, 'General Kenobi')
+        await checksoundreaction('hello there', messagestring, message, config_file.hello_there_path, variable)
     elif 'idk' in messagestring:
         await checkwordreaction('idk', 'None', messagestring, message, 'None', '¯\_(ツ)_/¯')
     elif 'i dont know' in messagestring:
