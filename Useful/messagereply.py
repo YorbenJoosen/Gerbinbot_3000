@@ -163,7 +163,7 @@ async def messagereply(message, messagestring):
         await checksoundreaction('afsluiten', messagestring, message, config_file.afsluiten_path, variable)
     elif 'child' in messagestring:
         variable = await turnonoff.read(message.guild.id, "child")
-        await checkwordreaction('brain', 'None', messagestring, message, config_file.child_mp4_path, 'None')
+        await checkwordreaction('child', 'None', messagestring, message, config_file.child_mp4_path, 'None')
         await checksoundreaction('child', messagestring, message, config_file.child_mp3_path, variable)
     elif 'cola' in messagestring:
         variable = await turnonoff.read(message.guild.id, "cola")
@@ -179,7 +179,7 @@ async def messagereply(message, messagestring):
         await checksoundreaction('hehe', messagestring, message, config_file.hehe_path, variable)
     elif 'helicopter' in messagestring:
         variable = await turnonoff.read(message.guild.id, "helicopter")
-        await checksoundreaction('helicopter', messagestring, message, config_file.cola_path, variable)
+        await checksoundreaction('helicopter', messagestring, message, config_file.helicopter_path, variable)
     elif 'boss' in messagestring:
         variable = await turnonoff.read(message.guild.id, "boss")
         await checksoundreaction('boss', messagestring, message, config_file.hey_boss_path, variable)
@@ -207,7 +207,7 @@ async def messagereply(message, messagestring):
         await checksoundreaction('raid', messagestring, message, config_file.raid_path, variable)
     elif 'sausage' in messagestring:
         variable = await turnonoff.read(message.guild.id, "sausage")
-        await checksoundreaction('sausage', messagestring, message, config_file.hey_boss_path, variable)
+        await checksoundreaction('sausage', messagestring, message, config_file.sausage_path, variable)
     elif 'raining' in messagestring:
         variable = await turnonoff.read(message.guild.id, "raining")
         await checksoundreaction('raining', messagestring, message, config_file.raining_path, variable)
