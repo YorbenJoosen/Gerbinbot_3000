@@ -4,18 +4,15 @@ import random
 import audioread
 import discord
 import config_file
-
-
-# Function to check how the bot should respond
 from SQL import turnonoff
 
 
+# Function to check how the bot should respond
 async def checkwordreaction(splitter, reactionemoji, messagestring, message, filename, reactionmessage):
     messagestring = messagestring.split(splitter)
     spacepos1 = messagestring[0].find(' ', len(messagestring[0])-1)
     spacepos2 = messagestring[1].find(' ')
-    if (messagestring[0] == '' or spacepos1 == len(messagestring[0]) - 1) and (
-            messagestring[1] == '' or spacepos2 == 0):
+    if (messagestring[0] == '' or spacepos1 == len(messagestring[0]) - 1) and (messagestring[1] == '' or spacepos2 == 0):
         if reactionemoji != 'None':
             await message.add_reaction(reactionemoji)
         if reactionmessage != 'None' and filename != 'None':
@@ -26,11 +23,22 @@ async def checkwordreaction(splitter, reactionemoji, messagestring, message, fil
             await message.reply(file=discord.File(filename))
 
 
+async def checksoundreaction(splitter, messagestring, message, path, variable):
+    messagestring = messagestring.split(splitter)
+    spacepos1 = messagestring[0].find(' ', len(messagestring[0]) - 1)
+    spacepos2 = messagestring[1].find(' ')
+    if (messagestring[0] == '' or spacepos1 == len(messagestring[0]) - 1) and (messagestring[1] == '' or spacepos2 == 0):
+        voice_state = message.author.voice
+        if message.guild.voice_client is None and variable == 1:  # Checks if the bot is not already in a channel
+            if voice_state:  # Checks if the user is in a channel
+                vc = await message.author.voice.channel.connect()
+                vc.play(discord.FFmpegPCMAudio(source=path))
+                with audioread.audio_open(path) as f:
+                    await asyncio.sleep(f.duration)
+                await vc.disconnect()
+
+
 async def messagereply(message, messagestring):
-    johncena = await turnonoff.read(message.guild.id, "johncena")
-    brain = await turnonoff.read(message.guild.id, "brain")
-    hekkie = await turnonoff.read(message.guild.id, "hekkie")
-    buffalo = await turnonoff.read(message.guild.id, "buffalo")
     dad = await turnonoff.read(message.guild.id, "dad")
     if 'creeper' in messagestring:
         await checkwordreaction('creeper', 'None', messagestring, message, 'None', 'OW MAN')
@@ -109,9 +117,9 @@ async def messagereply(message, messagestring):
         if (messagestring[0] == '' or spacepos1 == len(messagestring[0]) - 1) and spacepos2 == 0:
             await message.channel.send('Hello' + messagestring[1] + ", I'm dad")
     elif 'hello there' in messagestring:
-        await checkwordreaction('hello there', 'None', messagestring, message,
-                                config_file.general_kenobi_path,
-                                'General Kenobi')
+        variable = await turnonoff.read(message.guild.id, "hellothere")
+        await checkwordreaction('hello there', 'None', messagestring, message,config_file.general_kenobi_path, 'General Kenobi')
+        await checksoundreaction('cola', messagestring, message, config_file.cola_path, variable)
     elif 'idk' in messagestring:
         await checkwordreaction('idk', 'None', messagestring, message, 'None', '¯\_(ツ)_/¯')
     elif 'i dont know' in messagestring:
@@ -133,94 +141,84 @@ async def messagereply(message, messagestring):
             await checkwordreaction('pauze', 'None', messagestring, message, 'None',
                                     'Is het een pauze als hij niet uitloopt?')
     elif 'hekkie' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "hekkie")
         await checkwordreaction('hekkie', 'None', messagestring, message, config_file.hekkie_gif_path, 'None')
-        messagestring = messagestring.split('hekkie')
-        # Finds the locations of the spaces
-        spacepos1 = messagestring[0].find(' ', len(messagestring[0]) - 1)
-        spacepos2 = messagestring[1].find(' ')
-        if (messagestring[0] == '' or spacepos1 == len(messagestring[0]) - 1) and (messagestring[1] == '' or spacepos2 == 0):  # Checks if the words that we want are not between other letters
-            voice_state = message.author.voice
-            if message.guild.voice_client is None and hekkie == 1:  # Checks if the bot is not already in a channel
-                if voice_state:  # Checks if the user is in a channel
-                    vc = await message.author.voice.channel.connect()
-                    vc.play(discord.FFmpegPCMAudio(
-                        source=config_file.hekkie_mp3_path))
-                    with audioread.audio_open(
-                            config_file.hekkie_mp3_path) as f:
-                        await asyncio.sleep(f.duration)
-                    await vc.disconnect()
+        await checksoundreaction('hekkie', messagestring, message, config_file.hekkie_mp3_path, variable)
     elif '#' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "hekkie")
         await checkwordreaction('#', 'None', messagestring, message, config_file.hekkie_gif_path, 'None')
-        messagestring = messagestring.split('#')
-        # Finds the locations of the spaces
-        spacepos1 = messagestring[0].find(' ', len(messagestring[0]) - 1)
-        spacepos2 = messagestring[1].find(' ')
-        if (messagestring[0] == '' or spacepos1 == len(messagestring[0]) - 1) and (messagestring[
-                                                                                       1] == '' or spacepos2 == 0):  # Checks if the words that we want are not between other letters
-            voice_state = message.author.voice
-            if message.guild.voice_client is None and hekkie == 1:  # Checks if the bot is not already in a channel
-                if voice_state:  # Checks if the user is in a channel
-                    vc = await message.author.voice.channel.connect()
-                    vc.play(discord.FFmpegPCMAudio(
-                        source=config_file.hekkie_mp3_path))
-                    with audioread.audio_open(
-                            config_file.hekkie_mp3_path) as f:
-                        await asyncio.sleep(f.duration)
-                    await vc.disconnect()
+        await checksoundreaction('#', messagestring, message, config_file.hekkie_mp3_path, variable)
     elif 'brain' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "brain")
         await checkwordreaction('brain', 'None', messagestring, message, config_file.brain_aneurysm_mp4_path, 'None')
-        messagestring = messagestring.split('brain')
-        # Finds the locations of the spaces
-        spacepos1 = messagestring[0].find(' ', len(messagestring[0]) - 1)
-        spacepos2 = messagestring[1].find(' ')
-        if (messagestring[0] == '' or spacepos1 == len(messagestring[0]) - 1) and (
-                messagestring[
-                    1] == '' or spacepos2 == 0):  # Checks if the words that we want are not between other letters
-            voice_state = message.author.voice
-            if message.guild.voice_client is None and brain == 1:  # Checks if the bot is not already in a channel
-                if voice_state:  # Checks if the user is in a channel
-                    vc = await message.author.voice.channel.connect()
-                    vc.play(discord.FFmpegPCMAudio(
-                        source=config_file.brain_aneurysm_mp3_path))
-                    with audioread.audio_open(
-                            config_file.brain_aneurysm_mp3_path) as f:
-                        await asyncio.sleep(f.duration)
-                    await vc.disconnect()
+        await checksoundreaction('brain', messagestring, message, config_file.brain_aneurysm_mp3_path, variable)
     elif 'john cena' in messagestring:
-        messagestring = messagestring.split('john cena')
-        # Finds the locations of the spaces
-        spacepos1 = messagestring[0].find(' ', len(messagestring[0]) - 1)
-        spacepos2 = messagestring[1].find(' ')
-        if (messagestring[0] == '' or spacepos1 == len(messagestring[0]) - 1) and (
-                messagestring[
-                    1] == '' or spacepos2 == 0):  # Checks if the words that we want are not between other letters
-            voice_state = message.author.voice
-            if message.guild.voice_client is None and johncena == 1:  # Checks if the bot is not already in a channel
-                if voice_state:  # Checks if the user is in a channel
-                    vc = await message.author.voice.channel.connect()
-                    vc.play(discord.FFmpegPCMAudio(
-                        source=config_file.john_cena_path))
-                    with audioread.audio_open(
-                            config_file.john_cena_path) as f:
-                        await asyncio.sleep(f.duration)
-                    await vc.disconnect()
+        variable = await turnonoff.read(message.guild.id, "johncena")
+        await checksoundreaction('john cena', messagestring, message, config_file.john_cena_path, variable)
     elif 'buffalo' in messagestring:
-        messagestring = messagestring.split('buffalo')
-        # Finds the locations of the spaces
-        spacepos1 = messagestring[0].find(' ', len(messagestring[0]) - 1)
-        spacepos2 = messagestring[1].find(' ')
-        if (messagestring[0] == '' or spacepos1 == len(messagestring[0]) - 1) and (
-                messagestring[
-                    1] == '' or spacepos2 == 0):  # Checks if the words that we want are not between other letters
-            voice_state = message.author.voice
-            if message.guild.voice_client is None and buffalo == 1:  # Checks if the bot is not already in a channel
-                if voice_state:  # Checks if the user is in a channel
-                    vc = await message.author.voice.channel.connect()
-                    vc.play(discord.FFmpegPCMAudio(
-                        source=config_file.buffalo_path))
-                    with audioread.audio_open(
-                            config_file.buffalo_path) as f:
-                        await asyncio.sleep(f.duration)
-                    await vc.disconnect()
+        variable = await turnonoff.read(message.guild.id, "buffalo")
+        await checksoundreaction('buffalo', messagestring, message, config_file.buffalo_path, variable)
+    elif 'afsluiten' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "afsluiten")
+        await checksoundreaction('afsluiten', messagestring, message, config_file.afsluiten_path, variable)
+    elif 'child' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "child")
+        await checkwordreaction('brain', 'None', messagestring, message, config_file.child_mp4_path, 'None')
+        await checksoundreaction('child', messagestring, message, config_file.child_mp3_path, variable)
+    elif 'cola' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "cola")
+        await checksoundreaction('cola', messagestring, message, config_file.cola_path, variable)
+    elif 'torture' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "torture")
+        await checksoundreaction('torture', messagestring, message, config_file.torture_path, variable)
+    elif 'gorp' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "gorp")
+        await checksoundreaction('gorp', messagestring, message, config_file.gorp_path, variable)
+    elif 'hehe' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "hehe")
+        await checksoundreaction('hehe', messagestring, message, config_file.hehe_path, variable)
+    elif 'helicopter' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "helicopter")
+        await checksoundreaction('helicopter', messagestring, message, config_file.cola_path, variable)
+    elif 'boss' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "boss")
+        await checksoundreaction('boss', messagestring, message, config_file.hey_boss_path, variable)
+    elif 'home' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "home")
+        await checkwordreaction('home', 'None', messagestring, message, config_file.indiehome_mp4_path, 'None')
+        await checksoundreaction('home', messagestring, message, config_file.indiehome_mp3_path, variable)
+    elif 'lach' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "lachje")
+        await checksoundreaction('lach', messagestring, message, config_file.lachje_path, variable)
+    elif 'lemons' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "lemons")
+        await checksoundreaction('lemons', messagestring, message, config_file.lemons_path, variable)
+    elif 'mcdonalds' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "mcdonalds")
+        await checksoundreaction('mcdonalds', messagestring, message, config_file.mcdonalds_path, variable)
+    elif 'misinput' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "misinput")
+        await checksoundreaction('misinput', messagestring, message, config_file.misinput_path, variable)
+    elif 'omgekeerd' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "omgekeerd")
+        await checksoundreaction('omgekeerd', messagestring, message, config_file.omgekeerd_path, variable)
+    elif 'raid' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "raid")
+        await checksoundreaction('raid', messagestring, message, config_file.raid_path, variable)
+    elif 'sausage' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "sausage")
+        await checksoundreaction('sausage', messagestring, message, config_file.hey_boss_path, variable)
+    elif 'raining' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "raining")
+        await checksoundreaction('raining', messagestring, message, config_file.raining_path, variable)
+    elif 'uvu' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "uvu")
+        await checksoundreaction('uvu', messagestring, message, config_file.uvu_path, variable)
+    elif 'vietnamese' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "vietnamese")
+        await checksoundreaction('vietnamese', messagestring, message, config_file.vietnamese_path, variable)
+    elif 'voicemail' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "voicemail")
+        await checksoundreaction('voicemail', messagestring, message, config_file.voicemail_path, variable)
     else:
         return

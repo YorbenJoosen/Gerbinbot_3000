@@ -46,3 +46,39 @@ async def turnonoff(guild):
         command = "delete from turnonoff where idserver = ? and what = ?"
         sql_cursor.execute(command, serverid, what)
         sql_connection.commit()
+
+
+async def leaderboardvoice(guild):
+    serverid = guild.id
+    sql_connection = pyodbc.connect(config_file.sql_connection_string)
+    sql_cursor = sql_connection.cursor()
+    command = "delete from leaderboardvoice where idserver = ?"
+    sql_cursor.execute(command, serverid)
+    sql_connection.commit()
+
+
+async def leaderboarstream(guild):
+    serverid = guild.id
+    sql_connection = pyodbc.connect(config_file.sql_connection_string)
+    sql_cursor = sql_connection.cursor()
+    command = "delete from leaderboardstream where idserver = ?"
+    sql_cursor.execute(command, serverid)
+    sql_connection.commit()
+
+
+async def leaderboardcamera(guild):
+    serverid = guild.id
+    sql_connection = pyodbc.connect(config_file.sql_connection_string)
+    sql_cursor = sql_connection.cursor()
+    command = "delete from leaderboardcamera where idserver = ?"
+    sql_cursor.execute(command, serverid)
+    sql_connection.commit()
+
+
+async def leaderboardtext(guild):
+    serverid = guild.id
+    sql_connection = pyodbc.connect(config_file.sql_connection_string)
+    sql_cursor = sql_connection.cursor()
+    command = "delete from leaderboardtext where idserver = ?"
+    sql_cursor.execute(command, serverid)
+    sql_connection.commit()

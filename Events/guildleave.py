@@ -7,3 +7,7 @@ async def guildleave(guild):
     await guildleft.loops(guild)
     await guildleft.pause(guild)
     await guildleft.turnonoff(guild)
+    await guildleft.leaderboardvoice(guild)
+    await guildleft.leaderboardtext(guild)
+    await guildleft.leaderboardcamera(guild)
+    await guildleft.leaderboarstream(guild)
