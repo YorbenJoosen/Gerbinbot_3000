@@ -1,4 +1,7 @@
 import datetime
+
+from discord.ext.commands import has_guild_permissions, MissingPermissions
+
 import config_file
 import discord
 from discord.ext import commands
@@ -103,11 +106,13 @@ class Usefulcommands(commands.Cog):
 
     # Used to turn off certain functions
     @commands.command(aliases=["off"])
+    @has_guild_permissions(administrator=True)
     async def turnoff(self, ctx, *, option):
         await turnoff.turnoff(ctx, option)
 
     # Used to turn on certain options
     @commands.command(aliases=["on"])
+    @has_guild_permissions(administrator=True)
     async def turnon(self, ctx, *, option):
         await turnon.turnon(ctx, option)
 
@@ -283,6 +288,8 @@ async def on_guild_remove(guild):
 async def on_command_error(ctx, error):
     if isinstance(error, commands.errors.CommandNotFound):
         await ctx.send('You wrote the command wrong, you idiot!')
+    elif isinstance(error, MissingPermissions):
+        await ctx.send('You do not have the required permissions!')
 
 
 bot.add_cog(Hiddencommands(bot))
