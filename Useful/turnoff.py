@@ -197,3 +197,10 @@ async def turnoff(ctx, option):
             await ctx.reply("Voicemail has been turned off.")
         else:
             await ctx.reply("Voicemail there was already turned off.")
+    elif option == 'burgir':
+        variable = await turnonoff.read(serverid, "burgir")
+        if variable == 1:
+            await turnonoff.update(1, serverid, 'burgir')
+            await ctx.reply("Burgir has been turned off.")
+        else:
+            await ctx.reply("Burgir there was already turned off.")

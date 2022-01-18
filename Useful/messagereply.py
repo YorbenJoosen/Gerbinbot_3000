@@ -220,5 +220,10 @@ async def messagereply(message, messagestring):
     elif 'voicemail' in messagestring:
         variable = await turnonoff.read(message.guild.id, "voicemail")
         await checksoundreaction('voicemail', messagestring, message, config_file.voicemail_path, variable)
+    elif 'burgir' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "burgir")
+        await checksoundreaction('burgir', messagestring, message, config_file.burgir_mp3_path, variable)
+        if message.guild.id == config_file.yorbenguildid:
+            await checkwordreaction('burgir', 'None', messagestring, message, config_file.burgir_mp4_path, 'None')
     else:
         return
