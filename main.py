@@ -14,7 +14,7 @@ from Random import tutturu, gamedeals, copypasta, meme, gayrate, simprate, dickl
     repeat, rps
 from SQL import loops, musicqueue, pause, skipped, disconnected
 from Useful import password, info, helpcommands, leaderboardvoice, leaderboardtext, addquote, sendquotes, calculate, \
-    leaderboardcamera, leaderboardstream, leaderboardzevensprong, addzevensprong, turnoff, turnon
+    leaderboardcamera, leaderboardstream, leaderboardzevensprong, addzevensprong, turnoff, turnon, randomsound
 
 discordtoken = config_file.bot_token
 intents = discord.Intents.all()
@@ -115,6 +115,11 @@ class Usefulcommands(commands.Cog):
     @has_guild_permissions(administrator=True)
     async def turnon(self, ctx, *, option):
         await turnon.turnon(ctx, option)
+
+    # Random sound
+    @commands.command(aliases=["sound"])
+    async def randomsound(self, ctx):
+        await randomsound.randomsound(ctx)
 
 
 class Randomcommands(commands.Cog):
