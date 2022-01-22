@@ -102,3 +102,15 @@ I use a config file to hide my tokens and system paths I use in my code.
 2) Aliases: cointoss, toss
 ### G!repeat + text
 1) Description: The bot repeats your message and deletes yours.
+### G!randomsound
+1) Description: The bot plays a random sound in your channel.
+2) Aliases: sound
+## Admin
+### G!turnon + function
+1) Description: The function gets turned on.
+2) Aliases: on
+3) Functions: all, doeidruif, dad, johncena, brain, hekkie, buffalo, afsluiten, child, cola, torture, gorp, hehe, helicopter, hellothere, boss, home, lachje, lemons, mcdonalds, misinput, omgekeerd, raid, sausage, raining, uvu, vietnamese, voicemail and burgir
+### G!turnoff + function
+1) Description: The function gets turned off.
+2) Aliases: off
+3) Functions: all, doeidruif, dad, johncena, brain, hekkie, buffalo, afsluiten, child, cola, torture, gorp, hehe, helicopter, hellothere, boss, home, lachje, lemons, mcdonalds, misinput, omgekeerd, raid, sausage, raining, uvu, vietnamese, voicemail and burgir
