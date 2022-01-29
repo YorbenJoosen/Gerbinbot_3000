@@ -14,17 +14,31 @@ async def playtutturu(voice_channel):
     await vc.disconnect()
 
 
-async def tutturu(ctx):
+async def tutturu(ctx, type):
     voice_state = ctx.author.voice
     if ctx.voice_client is None:
         if voice_state:
+            if type == 'slash':
+                await ctx.respond("Tutturu is playing.", ephemeral=True)
             voice_channel = ctx.author.voice.channel
             await playtutturu(voice_channel)
         elif voice_state is None:
-            await ctx.send(str(ctx.author.name) + " is not in a channel.")
+            if type == 'normal':
+                await ctx.reply(str(ctx.author.name) + " is not in a channel.")
+            elif type == 'slash':
+                await ctx.respond(str(ctx.author.name) + " is not in a channel.")
     elif voice_state is None:
-        await ctx.send(str(ctx.author.name) + " is not in a channel.")
+        if type == 'normal':
+            await ctx.reply(str(ctx.author.name) + " is not in a channel.")
+        elif type == 'slash':
+            await ctx.respond(str(ctx.author.name) + " is not in a channel.")
     elif ctx.author.voice.channel == ctx.voice_client.channel:
-        await ctx.send('Bot is already playing something else.')
+        if type == 'normal':
+            await ctx.reply('Bot is already playing something else.')
+        elif type == 'slash':
+            await ctx.respond('Bot is already playing something else.')
     else:
-        await ctx.send('Bot is already in another channel.')
+        if type == 'normal':
+            await ctx.reply('Bot is already in another channel.')
+        elif type == 'slash':
+            await ctx.respond('Bot is already in another channel.')

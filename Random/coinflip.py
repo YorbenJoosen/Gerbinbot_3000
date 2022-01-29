@@ -1,14 +1,23 @@
 import random
 
 
-async def coinflip(ctx):
+async def coinflip(ctx, type):
     waarde = random.randint(1, 101)
     if 1 <= waarde < 50:
-        await ctx.channel.send('Heads')
+        if type == 'normal':
+            await ctx.reply('Heads')
+        elif type == 'slash':
+            await ctx.respond('Heads')
     elif 50 <= waarde < 101:
-        await ctx.channel.send('Tails')
+        if type == 'normal':
+            await ctx.reply('Tails')
+        elif type == 'slash':
+            await ctx.respond('Tails')
     else:
-        await ctx.channel.send('Side' + "\n" + "Daaamn you're one flipping lucky bastard! (See my pun there, hehe bots rule)")
+        if type == 'normal':
+            await ctx.reply('Side' + "\n" + "Daaamn you're one flipping lucky bastard! (See my pun there, hehe bots rule)")
+        elif type == 'slash':
+            await ctx.respond('Side' + "\n" + "Daaamn you're one flipping lucky bastard! (See my pun there, hehe bots rule)")
 
 
 

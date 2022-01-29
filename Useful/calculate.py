@@ -33,6 +33,9 @@ class Calc(ast.NodeVisitor):
         return calc.visit(tree.body[0])
 
 
-async def calculate(ctx, calculation):
+async def calculate(ctx, calculation, type):
     result = Calc.evaluate(calculation)
-    await ctx.send(result)
+    if type == 'normal':
+        await ctx.send(result)
+    elif type == 'slash':
+        await ctx.respond(result)

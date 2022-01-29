@@ -1,5 +1,6 @@
 import datetime
 
+from discord import SlashCommandGroup, Option
 from discord.ext.commands import has_guild_permissions, MissingPermissions
 
 import config_file
@@ -43,83 +44,149 @@ class Usefulcommands(commands.Cog):
     # Generates a password of a desired length and sends it via dm
     @commands.command()
     async def password(self, ctx, *, length):
-        await password.password(ctx, length)
+        await password.password(ctx, length, 'normal')
+
+    @commands.slash_command(name='password', description='The bot sends you a password of the desired length.')
+    async def slashpassword(self, ctx, length: Option(int, "Enter your desired length.", min_value=1, max_value=1999, required=True)):
+        await password.password(ctx, length, 'slash')
 
     # Gives back the time and date
     @commands.command()
     async def time(self, ctx):
         await ctx.channel.send(datetime.datetime.now())
 
+    @commands.slash_command(name='time', description='The bot gives you the time.')
+    async def slashtime(self, ctx):
+        await ctx.respond(datetime.datetime.now())
+
     # Rickrolls the user
     @commands.command()
     async def info(self, ctx):
-        await info.info(ctx)
+        await info.info(ctx, 'normal')
+
+    @commands.slash_command(name='info', description='The bot gives you some general info.')
+    async def slashinfo(self, ctx):
+        await info.info(ctx, 'slash')
 
     # Shows the available functions
     @commands.command(aliases=["help", "commands"])
     async def helpcommands(self, ctx):
-        await helpcommands.helpcommands(ctx)
+        await helpcommands.helpcommands(ctx, 'normal')
+
+    @commands.slash_command(name='help', description='The bot shows you all available commands.')
+    async def slashhelp(self, ctx):
+        await helpcommands.helpcommands(ctx, 'slash')
 
     # Prints the voice leaderboard
     @commands.command(aliases=["voice"])
     async def leaderboardvoice(self, ctx, *, user=None):
-        await leaderboardvoice.leaderboardvoice(ctx, user)
+        await leaderboardvoice.leaderboardvoice(ctx, user, 'normal')
+
+    @commands.slash_command(name='leaderboardvoice', description='The bot sends the voice leaderboard.')
+    async def slashleaderboardvoice(self, ctx, user: Option(discord.Member, "Request a certain user.", required=False)):
+        await leaderboardvoice.leaderboardvoice(ctx, user, 'slash')
 
     # Prints the text leaderboard
     @commands.command(aliases=["text"])
     async def leaderboardtext(self, ctx, *, user=None):
-        await leaderboardtext.leaderboardtext(ctx, user)
+        await leaderboardtext.leaderboardtext(ctx, user, 'normal')
+
+    @commands.slash_command(name='leaderboardtext', description='The bot sends the text leaderboard.')
+    async def slashleaderboardtext(self, ctx, user: Option(discord.Member, "Request a certain user.", required=False)):
+        await leaderboardtext.leaderboardtext(ctx, user, 'slash')
 
     # Prints the camera leaderboard
     @commands.command(aliases=["camera", 'cam'])
     async def leaderboardcamera(self, ctx, *, user=None):
-        await leaderboardcamera.leaderboardcamera(ctx, user)
+        await leaderboardcamera.leaderboardcamera(ctx, user, 'normal')
+
+    @commands.slash_command(name='leaderboardcamera', description='The bot sends the camera leaderboard.')
+    async def slashleaderboardcamera(self, ctx, user: Option(discord.Member, "Request a certain user.", required=False)):
+        await leaderboardcamera.leaderboardcamera(ctx, user, 'slash')
 
     # Prints the stream leaderboard
     @commands.command(aliases=["stream"])
     async def leaderboardstream(self, ctx, *, user=None):
-        await leaderboardstream.leaderboardstream(ctx, user)
+        await leaderboardstream.leaderboardstream(ctx, user, 'normal')
+
+    @commands.slash_command(name='leaderboardstream', description='The bot sends the stream leaderboard.')
+    async def slashleaderboardstream(self, ctx, user: Option(discord.Member, "Request a certain user.", required=False)):
+        await leaderboardstream.leaderboardstream(ctx, user, 'slash')
 
     # Prints the zevensprong leaderboard
     @commands.command(aliases=["7sprong", "zevensprong", "zevesprong", "7"])
     async def leaderboardzevensprong(self, ctx, *, user=None):
-        await leaderboardzevensprong.leaderboardzevensprong(ctx, user, bot)
+        await leaderboardzevensprong.leaderboardzevensprong(ctx, user, bot, 'normal')
+
+    @commands.slash_command(name='leaderboardzevensprong', description='The bot sends the zevensprong leaderboard.')
+    async def slashleaderboardzevensprong(self, ctx, user: Option(discord.Member, "Request a certain user.", required=False)):
+        await leaderboardzevensprong.leaderboardzevensprong(ctx, user, bot, 'slash')
 
     # Adds a zevensprong amount to the leaderboard
     @commands.command(aliases=["7add", "7sprongadd", "zeveadd", "zevenadd", "zevensprongadd", "zevesprongadd", "add7", "addzeven", "addzeve", "addzevesprong"])
     async def addzevensprong(self, ctx, *, zevensprongstring):
-        await addzevensprong.addzevensprong(ctx, zevensprongstring)
+        await addzevensprong.addzevensprong(ctx, zevensprongstring, amount=0, user=None, type='normal')
+
+    @commands.slash_command(name='addzevensprong', description='Add a zevensprong.')
+    async def slashaddzevensprong(self, ctx, amount: Option(int, 'Amount of zevensprongen.', required=True), user: Option(discord.Member, 'Define the user.', required=True)):
+        await addzevensprong.addzevensprong(ctx, zevensprongstring='', amount=amount, user=user, type='slash')
 
     # Adds quotes to the database
     @commands.command(aliases=["quotesadd", "addquotes", "quoteadd"])
     async def addquote(self, ctx, *, quotestring):
-        await addquote.addquote(ctx, quotestring)
+        await addquote.addquote(ctx, quotestring, quote='', user=None, type='normal')
+
+    @commands.slash_command(name='addquote', description='Add a quote.')
+    async def slashaddquote(self, ctx, quote: Option(str, 'The quote.', required=True), user: Option(discord.Member, 'Define the user.', required=True)):
+        await addquote.addquote(ctx, quotestring='', quote=quote, user=user, type='slash')
 
     # Adds quotes to the database
     @commands.command(aliases=["quotes", "sendquote"])
     async def sendquotes(self, ctx, *, user=None):
-        await sendquotes.sendquotes(ctx, user)
+        await sendquotes.sendquotes(ctx, user, 'normal')
+
+    @commands.slash_command(name='sendquotes', description='The bot sends the saved quotes.')
+    async def slashsendquotes(self, ctx, user: Option(discord.Member, "Request a certain user.", required=False)):
+        await sendquotes.sendquotes(ctx, user, 'slash')
 
     @commands.command(aliases=["calc", "calculator"])
     async def calculate(self, ctx, *, calculation):
-        await calculate.calculate(ctx, calculation)
+        await calculate.calculate(ctx, calculation, 'normal')
+
+    @commands.slash_command(name='calculate', description='The bot calculates your equation.')
+    async def slashcalculate(self, ctx, calculation: Option(str, "The equation to be calculated.", required=True)):
+        await calculate.calculate(ctx, calculation, 'slash')
 
     # Used to turn off certain functions
     @commands.command(aliases=["off"])
     @has_guild_permissions(administrator=True)
     async def turnoff(self, ctx, *, option):
-        await turnoff.turnoff(ctx, option)
+        await turnoff.turnoff(ctx, option, 'normal')
+
+    @commands.slash_command(name='turnoff', description='Turn off a certain function.')
+    @has_guild_permissions(administrator=True)
+    async def slashturnoff(self, ctx, option: Option(str, "Which function to turn off.", required=True)):
+        await turnoff.turnoff(ctx, option, 'slash')
 
     # Used to turn on certain options
     @commands.command(aliases=["on"])
     @has_guild_permissions(administrator=True)
     async def turnon(self, ctx, *, option):
-        await turnon.turnon(ctx, option)
+        await turnon.turnon(ctx, option, 'normal')
+
+    @commands.slash_command(name='turnon', description='Turn on a certain function.')
+    @has_guild_permissions(administrator=True)
+    async def slashturnon(self, ctx, option: Option(str, "Which function to turn on.", required=True)):
+        await turnon.turnon(ctx, option, 'slash')
 
     # Random sound
     @commands.command(aliases=["sound"])
     async def randomsound(self, ctx):
-        await randomsound.randomsound(ctx)
+        await randomsound.randomsound(ctx, 'normal')
+
+    @commands.slash_command(name='randomsound', description='Plays a random sound.')
+    async def slashrandomsound(self, ctx):
+        await randomsound.randomsound(ctx, 'slash')
 
 
 class Randomcommands(commands.Cog):
@@ -129,62 +196,110 @@ class Randomcommands(commands.Cog):
     # Lets the bot join and play the sound tutturu
     @commands.command(aliases=["tuturu", "tutturuu", "tuturuu"])
     async def tutturu(self, ctx):
-        await tutturu.tutturu(ctx)
+        await tutturu.tutturu(ctx, 'normal')
+
+    @commands.slash_command(name='tutturu', description='Plays the tutturu sound.')
+    async def slashtutturu(self, ctx):
+        await tutturu.tutturu(ctx, 'slash')
 
     # Sends the free games from subreddit GameDeals
     @commands.command(aliases=["deals"])
     async def gamedeals(self, ctx):
-        await gamedeals.gamedeals(ctx)
+        await gamedeals.gamedeals(ctx, 'normal')
+
+    @commands.slash_command(name='gamedeals', description='The bot sends the available gamedeas.')
+    async def slashgamedeals(self, ctx):
+        await gamedeals.gamedeals(ctx, 'slash')
 
     # Sends a random copypasta from the subreddit copypasta
     @commands.command()
     async def copypasta(self, ctx):
-        await copypasta.copypasta(ctx)
+        await copypasta.copypasta(ctx, 'normal')
+
+    @commands.slash_command(name='copypasta', description='The bot sends a random copypasta.')
+    async def slashcopypasta(self, ctx):
+        await copypasta.copypasta(ctx, 'slash')
 
     # Sends a random meme
     @commands.command()
     async def meme(self, ctx):
-        await meme.meme(ctx)
+        await meme.meme(ctx, 'normal')
+
+    @commands.slash_command(name='meme', description='The bot sends a random meme.')
+    async def slashmeme(self, ctx):
+        await meme.meme(ctx, 'slash')
 
     # Sends the percentage of the user's gayness
     @commands.command(aliases=["gayness", "gay"])
-    async def gayrate(self, ctx):
-        await gayrate.gayrate(ctx)
+    async def gayrate(self, ctx, *, user=None):
+        await gayrate.gayrate(ctx, 'normal', user, bot)
+
+    @commands.slash_command(name='gayrate', description='The bot shows your gayness.')
+    async def slashgayrate(self, ctx, user: Option(discord.Member, "Define a user.", required=False)):
+        await gayrate.gayrate(ctx, 'slash', user, bot)
 
     # Sends the percentage of the user's simpness
     @commands.command(aliases=["simp"])
-    async def simprate(self, ctx):
-        await simprate.simprate(ctx)
+    async def simprate(self, ctx, *, user=None):
+        await simprate.simprate(ctx, 'normal', user, bot)
+
+    @commands.slash_command(guild_ids=[786587999571279932], name='simprate', description='The bot shows your simpness.')
+    async def slashsimprate(self, ctx, user: Option(discord.Member, "Define a user.", required=False)):
+        await simprate.simprate(ctx, 'slash', user, bot)
 
     # Sends the user dicklength
     @commands.command(aliases=["dick", "dicksize"])
-    async def dicklength(self, ctx):
-        await dicklength.dicklength(ctx)
+    async def dicklength(self, ctx, *, user=None):
+        await dicklength.dicklength(ctx, 'normal', user, bot)
+
+    @commands.slash_command(guild_ids=[786587999571279932], name='dicklength', description='The bot shows your dicklength.')
+    async def slashdicklength(self, ctx, user: Option(discord.Member, "Define a user.", required=False)):
+        await dicklength.dicklength(ctx, 'slash', user, bot)
 
     # Sends the user's vagina
     @commands.command(aliases=["vagina", "vaginasize"])
-    async def vaginawidth(self, ctx):
-        await vaginawidth.vaginawidth(ctx)
+    async def vaginawidth(self, ctx, *, user=None):
+        await vaginawidth.vaginawidth(ctx, 'normal', user, bot)
+
+    @commands.slash_command(guild_ids=[786587999571279932], name='vaginawidth', description='The bot shows your vaginawidth.')
+    async def slashvaginawidth(self, ctx, user: Option(discord.Member, "Define a user.", required=False)):
+        await vaginawidth.vaginawidth(ctx, 'slash', user, bot)
 
     # Sends the user's boobsize
     @commands.command(aliases=["boob"])
-    async def boobsize(self, ctx):
-        await boobsize.boobsize(ctx)
+    async def boobsize(self, ctx, *, user=None):
+        await boobsize.boobsize(ctx, 'normal', user, bot)
+
+    @commands.slash_command(guild_ids=[786587999571279932], name='boobsize', description='The bot shows your boobsize.')
+    async def slashboobsize(self, ctx, user: Option(discord.Member, "Define a user.", required=False)):
+        await boobsize.boobsize(ctx, 'slash', user, bot)
 
     # Tosses a coin for the user
     @commands.command(aliases=["toss", "cointoss"])
     async def coinflip(self, ctx):
-        await coinflip.coinflip(ctx)
+        await coinflip.coinflip(ctx, 'normal')
+
+    @commands.slash_command(guild_ids=[786587999571279932], name='coinflip', description='The bot flips a coin for you.')
+    async def slashcoinflip(self, ctx):
+        await coinflip.coinflip(ctx, 'slash')
 
     # Makes the bot repeat the message the user sent
     @commands.command()
     async def repeat(self, ctx, *, message):
-        await repeat.repeat(ctx, message)
+        await repeat.repeat(ctx, message, 'normal')
+
+    @commands.slash_command(guild_ids=[786587999571279932], name='repeat', descirption='The bot repeats your message.')
+    async def slashrepeat(self, ctx, *, message: Option(str, 'The message.', required=True)):
+        await repeat.repeat(ctx, message, 'slash')
 
     # Play rock, paper, scissors against the bot
     @commands.command(aliases=["rockpaperscissors", "rock, paper, scissors"])
     async def rps(self, ctx, *, answer):
-        await rps.rps(ctx, answer)
+        await rps.rps(ctx, answer, 'normal')
+
+    @commands.slash_command(guild_ids=[786587999571279932], name='rps', description='Play rock, paper, scissors against the bot.')
+    async def slashrps(self, ctx, answer: Option(str, 'Give your answer.', choices=['Rock', 'Paper', 'Scissors'])):
+        await rps.rps(ctx, answer, 'slash')
 
 
 class Musiccommands(commands.Cog):
@@ -291,7 +406,7 @@ async def on_guild_remove(guild):
 
 @bot.event
 async def on_command_error(ctx, error):
-    if isinstance(error, commands.errors.CommandNotFound):
+    if isinstance(error, commands.CommandNotFound):
         await ctx.send('You wrote the command wrong, you idiot!')
     elif isinstance(error, MissingPermissions):
         await ctx.send('You do not have the required permissions!')

@@ -1,8 +1,9 @@
 import random
 
 
-async def password(ctx, length):
-    await ctx.message.delete()
+async def password(ctx, length, type):
+    if type == 'normal':
+        await ctx.message.delete()
     createdpassword = ''
     length = int(length)
     if length < 2000:
@@ -23,10 +24,14 @@ async def password(ctx, length):
             else:
                 createdpassword += character
             length -= 1
-        member = ctx.message.author
+        member = ctx.author
         channel = await member.create_dm()
         await channel.send(createdpassword)
+        if type == 'slash':
+            await ctx.respond("Sent a DM!", ephemeral=True)
     else:
-        member = ctx.message.author
+        member = ctx.author
         channel = await member.create_dm()
         await channel.send("Password length can't be greater than 2000.")
+        if type == 'slash':
+            await ctx.respond("Sent a DM!", ephemeral=True)

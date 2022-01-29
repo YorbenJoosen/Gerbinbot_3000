@@ -2,7 +2,7 @@ import aiohttp
 import config_file
 
 
-async def gamedeals(ctx):
+async def gamedeals(ctx, type):
     gamedeals = ""
     async with aiohttp.ClientSession() as session:
         async with session.get(config_file.gamedeals_url) as response:
@@ -14,6 +14,12 @@ async def gamedeals(ctx):
                         name in title for name in ('free', 'Free', '100%')):
                     gamedeals += title + "\n"
     if gamedeals == "":
-        await ctx.channel.send('There are currently no free games.')
+        if type == 'normal':
+            await ctx.reply('There are currently no free games.')
+        elif type == 'slash':
+            await ctx.respond('There are currently no free games.')
     else:
-        await ctx.channel.send(gamedeals)
+        if type == 'normal':
+            await ctx.reply(gamedeals)
+        elif type == 'slash':
+            await ctx.respond(gamedeals)

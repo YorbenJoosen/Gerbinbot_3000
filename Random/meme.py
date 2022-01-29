@@ -3,7 +3,7 @@ import aiohttp
 import config_file
 
 
-async def meme(ctx):
+async def meme(ctx, type):
     imagenumber = random.randrange(1, 20)
     subredditlink = random.choice(config_file.meme_urls)
     subreddit = subredditlink.replace("/hot/.json", "")
@@ -12,4 +12,7 @@ async def meme(ctx):
         async with session.get(subredditlink) as response:
             data = await response.json()
             url = data['data']['children'][imagenumber]['data']['url']
-            await ctx.channel.send("This meme came from the subreddit " + subreddit + ".\n" + url)
+            if type == 'normal':
+                await ctx.reply("This meme came from the subreddit " + subreddit + ".\n" + url)
+            elif type == 'slash':
+                await ctx.respond("This meme came from the subreddit " + subreddit + ".\n" + url)
