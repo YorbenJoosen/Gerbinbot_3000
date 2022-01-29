@@ -108,8 +108,7 @@ async def messagereply(message, messagestring):
     elif 'lekker' in messagestring:
         await checkwordreaction('lekker', '🥵', messagestring, message, 'None', 'None')
     elif 'cute' in messagestring:
-        await checkwordreaction('cute', 'None', messagestring, message,
-                                config_file.but_path, 'None')
+        await checkwordreaction('cute', 'None', messagestring, message, config_file.but_path, 'None')
     elif "im " in messagestring and dad == 1:
         messagestring = messagestring.split('im')
         spacepos1 = messagestring[0].find(' ', len(messagestring[0]) - 1)
@@ -118,40 +117,35 @@ async def messagereply(message, messagestring):
             await message.channel.send('Hello' + messagestring[1] + ", I'm dad")
     elif 'hello there' in messagestring:
         variable = await turnonoff.read(message.guild.id, "hellothere")
-        await checkwordreaction('hello there', 'None', messagestring, message, config_file.general_kenobi_path, 'General Kenobi')
         await checksoundreaction('hello there', messagestring, message, config_file.hello_there_path, variable)
+        await checkwordreaction('hello there', 'None', messagestring, message, config_file.general_kenobi_path, 'General Kenobi')
     elif 'idk' in messagestring:
         await checkwordreaction('idk', 'None', messagestring, message, 'None', '¯\_(ツ)_/¯')
     elif 'i dont know' in messagestring:
         await checkwordreaction('i dont know', 'None', messagestring, message, 'None', '¯\_(ツ)_/¯')
     elif 'vive la resistance' in messagestring:
-        await checkwordreaction('vive la resistance', 'None', messagestring, message,
-                                config_file.vive_la_resistance_path,
-                                'None')
+        await checkwordreaction('vive la resistance', 'None', messagestring, message, config_file.vive_la_resistance_path, 'None')
     elif 'rtx' in messagestring:
-        await checkwordreaction('rtx', 'None', messagestring, message,
-                                config_file.rtx_path, 'None')
+        await checkwordreaction('rtx', 'None', messagestring, message, config_file.rtx_path, 'None')
     elif 'doe het niet' in messagestring:
         await checkwordreaction('doe het niet', 'None', messagestring, message, 'None', 'Hij deed het toch')
     elif 'elektrocutie' in messagestring:
-        await checkwordreaction('elektrocutie', 'None', messagestring, message,
-                                config_file.pikachu_path, 'None')
+        await checkwordreaction('elektrocutie', 'None', messagestring, message, config_file.pikachu_path, 'None')
     elif 'pauze' in messagestring:
         if random.randint(0, 10) <= 1:
-            await checkwordreaction('pauze', 'None', messagestring, message, 'None',
-                                    'Is het een pauze als hij niet uitloopt?')
+            await checkwordreaction('pauze', 'None', messagestring, message, 'None', 'Is het een pauze als hij niet uitloopt?')
     elif 'hekkie' in messagestring:
         variable = await turnonoff.read(message.guild.id, "hekkie")
-        await checkwordreaction('hekkie', 'None', messagestring, message, config_file.hekkie_gif_path, 'None')
         await checksoundreaction('hekkie', messagestring, message, config_file.hekkie_mp3_path, variable)
+        await checkwordreaction('hekkie', 'None', messagestring, message, config_file.hekkie_gif_path, 'None')
     elif '#' in messagestring:
         variable = await turnonoff.read(message.guild.id, "hekkie")
-        await checkwordreaction('#', 'None', messagestring, message, config_file.hekkie_gif_path, 'None')
         await checksoundreaction('#', messagestring, message, config_file.hekkie_mp3_path, variable)
+        await checkwordreaction('#', 'None', messagestring, message, config_file.hekkie_gif_path, 'None')
     elif 'brain' in messagestring:
         variable = await turnonoff.read(message.guild.id, "brain")
-        await checkwordreaction('brain', 'None', messagestring, message, config_file.brain_aneurysm_mp4_path, 'None')
         await checksoundreaction('brain', messagestring, message, config_file.brain_aneurysm_mp3_path, variable)
+        await checkwordreaction('brain', 'None', messagestring, message, config_file.brain_aneurysm_mp4_path, 'None')
     elif 'john cena' in messagestring:
         variable = await turnonoff.read(message.guild.id, "johncena")
         await checksoundreaction('john cena', messagestring, message, config_file.john_cena_path, variable)
@@ -163,8 +157,8 @@ async def messagereply(message, messagestring):
         await checksoundreaction('afsluiten', messagestring, message, config_file.afsluiten_path, variable)
     elif 'child' in messagestring:
         variable = await turnonoff.read(message.guild.id, "child")
-        await checkwordreaction('child', 'None', messagestring, message, config_file.child_mp4_path, 'None')
         await checksoundreaction('child', messagestring, message, config_file.child_mp3_path, variable)
+        await checkwordreaction('child', 'None', messagestring, message, config_file.child_mp4_path, 'None')
     elif 'cola' in messagestring:
         variable = await turnonoff.read(message.guild.id, "cola")
         await checksoundreaction('cola', messagestring, message, config_file.cola_path, variable)
@@ -185,8 +179,8 @@ async def messagereply(message, messagestring):
         await checksoundreaction('boss', messagestring, message, config_file.hey_boss_path, variable)
     elif 'home' in messagestring:
         variable = await turnonoff.read(message.guild.id, "home")
-        await checkwordreaction('home', 'None', messagestring, message, config_file.indiehome_mp4_path, 'None')
         await checksoundreaction('home', messagestring, message, config_file.indiehome_mp3_path, variable)
+        await checkwordreaction('home', 'None', messagestring, message, config_file.indiehome_mp4_path, 'None')
     elif 'lach' in messagestring:
         variable = await turnonoff.read(message.guild.id, "lachje")
         await checksoundreaction('lach', messagestring, message, config_file.lachje_path, variable)
