@@ -1,7 +1,7 @@
 from SQL import loops
 
 
-async def loopsong(ctx):
+async def loopsong(ctx, type):
     serverid = ctx.guild.id
     song = await loops.read("song", serverid)
     queue = await loops.read("queue", serverid)
@@ -10,17 +10,35 @@ async def loopsong(ctx):
         if voice_state and ctx.author.voice.channel == ctx.voice_client.channel:
             if song == 0 and queue == 0:
                 await loops.update("song", 1, serverid)
-                await ctx.send('Song has been looped.')
+                if type == 'normal':
+                    await ctx.reply('Song has been looped.')
+                elif type == 'slash':
+                    await ctx.respond('Song has been looped.')
             elif song == 0 and queue == 1:
                 await loops.update("queue", 0, serverid)
                 await loops.update("song", 1, serverid)
-                await ctx.send('Song has been looped and the queue has been unlooped.')
+                if type == 'normal':
+                    await ctx.reply('Song has been looped and the queue has been unlooped.')
+                elif type == 'slash':
+                    await ctx.respond('Song has been looped and the queue has been unlooped.')
             else:
                 await loops.update("song", 0, serverid)
-                await ctx.send('Song has been unlooped.')
+                if type == 'normal':
+                    await ctx.reply('Song has been unlooped.')
+                elif type == 'slash':
+                    await ctx.respond('Song has been unlooped.')
         elif voice_state is None:
-            await ctx.send(str(ctx.author.name) + " is not in a channel.")
+            if type == 'normal':
+                await ctx.reply(str(ctx.author.name) + " is not in a channel.")
+            elif type == 'slash':
+                await ctx.respond(str(ctx.author.name) + " is not in a channel.")
         else:
-            await ctx.send(str(ctx.author.name) + " is not in the same channel.")
+            if type == 'normal':
+                await ctx.reply(str(ctx.author.name) + " is not in the same channel.")
+            elif type == 'slash':
+                await ctx.respond(str(ctx.author.name) + " is not in the same channel.")
     else:
-        await ctx.send('Bot is not connected to a voice channel')
+        if type == 'normal':
+            await ctx.reply('Bot is not connected to a voice channel')
+        elif type == 'slash':
+            await ctx.respond('Bot is not connected to a voice channel')

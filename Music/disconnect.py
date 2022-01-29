@@ -6,7 +6,7 @@ from Music import playvideo
 from SQL import musicqueue, loops, pause, skipped, disconnected, turnonoff
 
 
-async def disconnect(ctx):
+async def disconnect(ctx, type):
     serverid = ctx.guild.id
     voice_state = ctx.author.voice
     doeidruif = await turnonoff.read(serverid, 'doeidruif')
@@ -25,10 +25,21 @@ async def disconnect(ctx):
                 with audioread.audio_open(config_file.doei_druif_path) as f:
                     await asyncio.sleep(f.duration)
             await ctx.voice_client.disconnect()
+            if type == 'slash':
+                await ctx.respond('Bopt has been disconnected', ephemeral=True)
             await disconnected.update(0, serverid)
         elif voice_state is None:
-            await ctx.send(str(ctx.author.name) + " is not in a channel.")
+            if type == 'normal':
+                await ctx.reply(str(ctx.author.name) + " is not in a channel.")
+            elif type == 'slash':
+                await ctx.respond(str(ctx.author.name) + " is not in a channel.")
         else:
-            await ctx.send(str(ctx.author.name) + " is not in the same channel.")
+            if type == 'normal':
+                await ctx.reply(str(ctx.author.name) + " is not in the same channel.")
+            elif type == 'slash':
+                await ctx.respond(str(ctx.author.name) + " is not in the same channel.")
     else:
-        await ctx.send('Bot is not connected to a voice channel')
+        if type == 'normal':
+            await ctx.reply('Bot is not connected to a voice channel')
+        elif type == 'slash':
+            await ctx.respond('Bot is not connected to a voice channel')

@@ -3,7 +3,7 @@ from SQL import musicqueue
 from Music import playvideo
 
 
-async def playquery(ctx, query):
+async def playquery(ctx, query, type):
     results = YoutubeSearch(query, max_results=10).to_dict()
     id = results[0]["id"]
     url = "https://www.youtube.com/watch?v=" + id
@@ -35,6 +35,10 @@ async def playquery(ctx, query):
             seconds = "0" + duration.split(":")[2]
         duration = hours + ":" + minutes + ":" + seconds
     await musicqueue.write(url, title, duration, ctx.guild.id)
+    if type == 'normal':
+        await ctx.reply('Song has been added to the queue.')
+    elif type == 'slash':
+        await ctx.respond('Song has been added to the queue.')
     musiclist = await musicqueue.read(ctx.guild.id)
     if len(musiclist) == 1:
         await playvideo.playvideo(ctx)

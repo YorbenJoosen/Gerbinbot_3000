@@ -53,6 +53,12 @@ async def rps(ctx, answer, type):
                 rpslist[i]['botpoints'] += 1
             elif answer != rpsbot.lower():
                 rpslist[i]['userpoints'] += 1
+            if type == 'normal':
+                await ctx.reply('Choice bot: ' + rpsbot + ' and score: ' + str(rpslist[i]['botpoints']) + '-' + str(
+                    rpslist[i]['userpoints']))
+            elif type == 'slash':
+                await ctx.respond('Choice bot: ' + rpsbot + ', choice user: ' + answer + ' and score: ' + str(
+                    rpslist[i]['botpoints']) + '-' + str(rpslist[i]['userpoints']))
             i = len(rpslist)
             await rockpaperscissors.write(rpslist)
         else:

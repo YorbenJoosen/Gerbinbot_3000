@@ -4,7 +4,7 @@ from SQL import musicqueue, loops, skipped
 from Music import playvideo
 
 
-async def shuffle(ctx):
+async def shuffle(ctx, type):
     serverid = ctx.guild.id
     voice_state = ctx.author.voice
     replacement = []
@@ -19,9 +19,15 @@ async def shuffle(ctx):
     if ctx.voice_client:
         if voice_state and ctx.author.voice.channel == ctx.voice_client.channel:
             if queue == 1:
-                await ctx.send("You can't shuffle when the queue is looped.")
+                if type == 'normal':
+                    await ctx.reply("You can't shuffle when the queue is looped.")
+                elif type == 'slash':
+                    await ctx.respond("You can't shuffle when the queue is looped.")
             elif song == 1:
-                await ctx.send("You can't shuffle when a song is looped.")
+                if type == 'normal':
+                    await ctx.reply("You can't shuffle when a song is looped.")
+                elif type == 'slash':
+                    await ctx.respond("You can't shuffle when a song is looped.")
             else:
                 ctx.voice_client.stop()
                 for i in range(length):
@@ -35,12 +41,24 @@ async def shuffle(ctx):
                 await musicqueue.empty(serverid)
                 for i in range(len(replacement)):
                     await musicqueue.write(replacement[i]["url"], replacement[i]["title"], replacement[i]["duration"], serverid)
-                await ctx.send('Queue has been shuffled.')
+                if type == 'normal':
+                    await ctx.reply('Queue has been shuffled.')
+                elif type == 'slash':
+                    await ctx.respond('Queue has been shuffled.')
                 await skipped.update(1, serverid)
                 await playvideo.playvideo(ctx)
         elif voice_state is None:
-            await ctx.send(str(ctx.author.name) + " is not in a channel.")
+            if type == 'normal':
+                await ctx.reply(str(ctx.author.name) + " is not in a channel.")
+            elif type == 'slash':
+                await ctx.respond(str(ctx.author.name) + " is not in a channel.")
         else:
-            await ctx.send(str(ctx.author.name) + " is not in the same channel.")
+            if type == 'normal':
+                await ctx.reply(str(ctx.author.name) + " is not in the same channel.")
+            elif type == 'slash':
+                await ctx.respond(str(ctx.author.name) + " is not in the same channel.")
     else:
-        await ctx.send('Bot is not connected to a voice channel')
+        if type == 'normal':
+            await ctx.reply('Bot is not connected to a voice channel')
+        elif type == 'slash':
+            await ctx.respond('Bot is not connected to a voice channel')

@@ -2,35 +2,50 @@ from SQL import loops
 from Music import playlist, playsingleurl, playquery
 
 
-async def whichkind(ctx, query, song, queue):
+async def whichkind(ctx, query, song, queue, type):
     if queue == 1:
-        await ctx.send("You can't add songs when the queue is looped.")
+        if type == 'normal':
+            await ctx.reply("You can't add songs when the queue is looped.")
+        elif type == 'slash':
+            await ctx.respond("You can't add songs when the queue is looped.")
     elif song == 1:
-        await ctx.send("You can't add songs when a song is looped.")
+        if type == 'normal':
+            await ctx.reply("You can't add songs when a song is looped.")
+        elif type == 'slash':
+            await ctx.respond("You can't add songs when a song is looped.")
     else:
         if 'playlist?' in query:
-            await playlist.playlist(ctx, query)
+            await playlist.playlist(ctx, query, type)
         elif 'watch?' in query:
-            await playsingleurl.playsingleurl(ctx, query)
+            await playsingleurl.playsingleurl(ctx, query, type)
         elif 'youtu.be' in query:
-            await playsingleurl.playsingleurl(ctx, query)
+            await playsingleurl.playsingleurl(ctx, query, type)
         else:
-            await playquery.playquery(ctx, query)
+            await playquery.playquery(ctx, query, type)
 
 
-async def play(ctx, query):
+async def play(ctx, query, type):
     serverid = ctx.guild.id
     song = await loops.read("song", serverid)
     queue = await loops.read("queue", serverid)
     voice_state = ctx.author.voice
     if ctx.voice_client:
         if voice_state and ctx.author.voice.channel == ctx.voice_client.channel:
-            await whichkind(ctx, query, song, queue)
+            await whichkind(ctx, query, song, queue, type)
         elif voice_state is None:
-            await ctx.send(str(ctx.author.name) + " is not in a channel.")
+            if type == 'normal':
+                await ctx.reply(str(ctx.author.name) + " is not in a channel.")
+            elif type == 'slash':
+                await ctx.respond(str(ctx.author.name) + " is not in a channel.")
         else:
-            await ctx.send(str(ctx.author.name) + " is not in the same channel.")
+            if type == 'normal':
+                await ctx.reply(str(ctx.author.name) + " is not in the same channel.")
+            elif type == 'slash':
+                await ctx.respond(str(ctx.author.name) + " is not in the same channel.")
     elif voice_state:
-        await whichkind(ctx, query, song, queue)
+        await whichkind(ctx, query, song, queue, type)
     else:
-        await ctx.send(str(ctx.author.name) + " is not in a channel.")
+        if type == 'normal':
+            await ctx.reply(str(ctx.author.name) + " is not in a channel.")
+        elif type == 'slash':
+            await ctx.respond(str(ctx.author.name) + " is not in a channel.")

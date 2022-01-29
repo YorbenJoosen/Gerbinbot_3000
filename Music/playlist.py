@@ -7,7 +7,7 @@ youtube_api_key = config_file.youtube_api_key
 youtube = build('youtube', 'v3', developerKey=youtube_api_key)
 
 
-async def playlist(ctx, query):
+async def playlist(ctx, query, type):
     try:
         url = query
         nextPageToken = None
@@ -86,8 +86,15 @@ async def playlist(ctx, query):
             nextPageToken = idsresponse.get('nextPageToken')
             if not nextPageToken:
                 break
+        if type == 'normal':
+            await ctx.reply('Playlist has been added to the queue.')
+        elif type == 'slash':
+            await ctx.respond('Playlist has been added to the queue.')
         musiclist = await musicqueue.read(ctx.guild.id)
         if length == len(musiclist):
             await playvideo.playvideo(ctx)
     except discovery.HttpError:
-        await ctx.send('This is not a correct url.')
+        if type == 'normal':
+            await ctx.reply('This is not a correct url.')
+        elif type == 'slash':
+            await ctx.respond('This is not a correct url.')
