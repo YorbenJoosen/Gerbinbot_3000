@@ -225,5 +225,8 @@ async def messagereply(message, messagestring):
         await checksoundreaction('burgir', messagestring, message, config_file.burgir_mp3_path, variable)
         if message.guild.id == config_file.yorbenguildid:
             await checkwordreaction('burgir', 'None', messagestring, message, config_file.burgir_mp4_path, 'None')
+    elif 'r2d2' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "r2d2")
+        await checksoundreaction('r2d2', messagestring, message, config_file.r2d2_path, variable)
     else:
         return
