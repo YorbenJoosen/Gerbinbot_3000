@@ -309,57 +309,101 @@ class Musiccommands(commands.Cog):
     # Plays the given query
     @commands.command(aliases=["search"])
     async def play(self, ctx, *, query):
-        await play.play(ctx, query)
+        await play.play(ctx, query, 'normal')
+
+    @commands.slash_command(name='play', description='Add a song to the queue.')
+    async def slashplay(self, ctx, query: Option(str, 'Url or search query.', required=True)):
+        await play.play(ctx, query, 'slash')
 
     # Loops the song that is playing atm
     @commands.command()
     async def loopsong(self, ctx):
-        await loopsong.loopsong(ctx)
+        await loopsong.loopsong(ctx, 'normal')
+
+    @commands.slash_command(name='loopsong', description='Loops the current song.')
+    async def slashloopsong(self, ctx):
+        await loopsong.loopsong(ctx, 'slash')
 
     # loops the queue
     @commands.command()
     async def loopqueue(self, ctx):
-        await loopqueue.loopqueue(ctx)
+        await loopqueue.loopqueue(ctx, 'normal')
+
+    @commands.slash_command(name='loopqueue', description='Loop the queue.')
+    async def slashloopqueue(self, ctx):
+        await loopqueue.loopqueue(ctx, 'slash')
 
     # Disconnects the bot and empties the url database
     @commands.command(aliases=["leave"])
     async def disconnect(self, ctx):
-        await disconnect.disconnect(ctx)
+        await disconnect.disconnect(ctx, 'normal')
+
+    @commands.slash_command(name='disconnect', description='Disconnect the bot.')
+    async def slashdisconnect(self, ctx):
+        await disconnect.disconnect(ctx, 'slash')
 
     # Clears the queue
     @commands.command(aliases=["clear"])
     async def clearqueue(self, ctx):
-        await clearqueue.clearqueue(ctx)
+        await clearqueue.clearqueue(ctx, 'normal')
+
+    @commands.slash_command(name='clearqueue', description='Clear the queue.')
+    async def slashclearqueue(self, ctx):
+        await clearqueue.clearqueue(ctx, 'slash')
 
     # Pauses the queue
     @commands.command(aliases=["stop", "pause"])
     async def pausemusic(self, ctx):
-        await pausemusic.pausemusic(ctx)
+        await pausemusic.pausemusic(ctx, 'normal')
+
+    @commands.slash_command(name='pausemusic', description='Pause the music.')
+    async def slashpausemusic(self, ctx):
+        await pausemusic.pausemusic(ctx, 'slash')
 
     # Resumes a paused queue
     @commands.command(aliases=["unpause", "resume"])
     async def resumemusic(self, ctx):
-        await resumemusic.resumemusic(ctx)
+        await resumemusic.resumemusic(ctx, 'normal')
+
+    @commands.slash_command(name='resumemusic', description='Resume the music.')
+    async def slashresumemusic(self, ctx):
+        await resumemusic.resumemusic(ctx, 'slash')
 
     # Shows which songs are queued
     @commands.command(aliases=["list", "songs"])
     async def queue(self, ctx):
-        await queue.queue(ctx)
+        await queue.queue(ctx, 'normal')
+
+    @commands.slash_command(name='queue', description='See the current queue.')
+    async def slashqueue(self, ctx):
+        await queue.queue(ctx, 'slash')
 
     # Shuffles the current playlist
     @commands.command()
     async def shuffle(self, ctx):
-        await shuffle.shuffle(ctx)
+        await shuffle.shuffle(ctx, 'normal')
+
+    @commands.slash_command(name='shuffle', description='Shuffle the queue.')
+    async def slashshuffle(self, ctx):
+        await shuffle.shuffle(ctx, 'slash')
 
     # Skips to the next song
     @commands.command(aliases=["skipsong", "next", "nextsong"])
     async def skip(self, ctx):
-        await skip.skip(ctx)
+        await skip.skip(ctx, 'normal')
+
+    @commands.slash_command(name='skip', description='Skip the current song.')
+    async def slashskip(self, ctx):
+        await skip.skip(ctx, 'slash')
 
     # Skips to the song which corresponds to the given number
     @commands.command()
     async def skipto(self, ctx, *, number):
-        await skipto.skipto(ctx, number)
+        await skipto.skipto(ctx, number, 'normal')
+
+    @commands.slash_command(name='skipto', description='Skips to a certain spot in the queue.')
+    async def slashskipto(self, ctx, number: Option(int, "Position of the song.", required=True)):
+        await skipto.skipto(ctx, number, 'slash')
 
 
 class Hiddencommands(commands.Cog):

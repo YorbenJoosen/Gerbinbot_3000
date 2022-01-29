@@ -23,7 +23,7 @@ def video_id(value):
     return None
 
 
-async def playsingleurl(ctx, query):
+async def playsingleurl(ctx, query, type):
     try:
         duration = 0
         title = ''
@@ -76,8 +76,15 @@ async def playsingleurl(ctx, query):
         for item in titleresponse['items']:
             title = item['snippet']['title']
         await musicqueue.write(query, title, duration, ctx.guild.id)
+        if type == 'normal':
+            await ctx.reply('Song has been added to the queue.')
+        elif type == 'slash':
+            await ctx.respond('Song has been added to the queue.')
         musiclist = await musicqueue.read(ctx.guild.id)
         if len(musiclist) == 1:
             await playvideo.playvideo(ctx)
     except discovery.HttpError:
-        await ctx.send('This is not a correct url.')
+        if type == 'normal':
+            await ctx.reply('This is not a correct url.')
+        elif type == 'slash':
+            await ctx.respond('This is not a correct url.')
