@@ -223,5 +223,18 @@ async def messagereply(message, messagestring):
     elif 'r2d2' in messagestring:
         if sounds == 1:
             await checksoundreaction('r2d2', messagestring, message, config_file.r2d2_path)
+    elif 'bruh' in messagestring:
+        if sounds == 1:
+            await checksoundreaction('bruh', messagestring, message, config_file.bruh_path)
+    elif 'focus' in messagestring:
+        if sounds == 1:
+            await checksoundreaction('focus', messagestring, message, config_file.focus_path)
+    elif 'pizza' in messagestring:
+        if sounds == 1:
+            await checksoundreaction('pizza', messagestring, message, config_file.focus_path)
+    elif 'bark' in messagestring:
+        if sounds == 1:
+            await checksoundreaction('bark', messagestring, message, config_file.bark_mp3_path)
+        await checkwordreaction('bark', 'None', messagestring, message, config_file.bark_mp4_path, 'None')
     else:
         return
