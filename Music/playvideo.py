@@ -17,7 +17,7 @@ ytdl_format_options = {
     'no_warnings': True,
     'default_search': 'auto',
     'source_address': '0.0.0.0',
-    'cookiefile': r"C:\Users\yorbe\PycharmProjects\cookies.txt"
+    'cookiefile': config_file.cookie_path
 }
 ffmpeg_options = {
     'options': '-vn',
