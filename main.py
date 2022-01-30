@@ -165,7 +165,7 @@ class Usefulcommands(commands.Cog):
 
     @commands.slash_command(name='turnoff', description='Turn off a certain function.')
     @has_guild_permissions(administrator=True)
-    async def slashturnoff(self, ctx, option: Option(str, "Which function to turn off.", required=True)):
+    async def slashturnoff(self, ctx, option: Option(str, "Which function to turn off.", required=True, choices=config_file.functions)):
         await turnoff.turnoff(ctx, option, 'slash')
 
     # Used to turn on certain options
@@ -176,7 +176,7 @@ class Usefulcommands(commands.Cog):
 
     @commands.slash_command(name='turnon', description='Turn on a certain function.')
     @has_guild_permissions(administrator=True)
-    async def slashturnon(self, ctx, option: Option(str, "Which function to turn on.", required=True)):
+    async def slashturnon(self, ctx, option: Option(str, "Which function to turn on.", required=True, choices=config_file.functions)):
         await turnon.turnon(ctx, option, 'slash')
 
     # Random sound

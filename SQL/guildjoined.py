@@ -43,11 +43,11 @@ async def skip(guild):
 
 
 async def turnonoff(guild):
-    for what in config_file.functions:
+    for i in range(len(config_file.functions)-1):
         serverid = guild.id
         sql_connection = pyodbc.connect(config_file.sql_connection_string)
         sql_cursor = sql_connection.cursor()
         command = "insert into turnonoff (idserver, what, value) values (?, ?, ?)"
-        values = (serverid, what, 1)
+        values = (serverid, config_file.functions[i+1], 1)
         sql_cursor.execute(command, values)
         sql_connection.commit()

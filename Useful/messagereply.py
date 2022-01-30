@@ -23,13 +23,13 @@ async def checkwordreaction(splitter, reactionemoji, messagestring, message, fil
             await message.reply(file=discord.File(filename))
 
 
-async def checksoundreaction(splitter, messagestring, message, path, variable):
+async def checksoundreaction(splitter, messagestring, message, path):
     messagestring = messagestring.split(splitter)
     spacepos1 = messagestring[0].find(' ', len(messagestring[0]) - 1)
     spacepos2 = messagestring[1].find(' ')
     if (messagestring[0] == '' or spacepos1 == len(messagestring[0]) - 1) and (messagestring[1] == '' or spacepos2 == 0):
         voice_state = message.author.voice
-        if message.guild.voice_client is None and variable == 1:  # Checks if the bot is not already in a channel
+        if message.guild.voice_client is None:  # Checks if the bot is not already in a channel
             if voice_state:  # Checks if the user is in a channel
                 vc = await message.author.voice.channel.connect()
                 vc.play(discord.FFmpegPCMAudio(source=path))
@@ -40,6 +40,7 @@ async def checksoundreaction(splitter, messagestring, message, path, variable):
 
 async def messagereply(message, messagestring):
     dad = await turnonoff.read(message.guild.id, "dad")
+    sounds = await turnonoff.read(message.guild.id, "sounds")
     if 'creeper' in messagestring:
         await checkwordreaction('creeper', 'None', messagestring, message, 'None', 'OW MAN')
     elif 'ah fuck' in messagestring:
@@ -116,8 +117,8 @@ async def messagereply(message, messagestring):
         if (messagestring[0] == '' or spacepos1 == len(messagestring[0]) - 1) and spacepos2 == 0:
             await message.channel.send('Hello' + messagestring[1] + ", I'm dad")
     elif 'hello there' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "hellothere")
-        await checksoundreaction('hello there', messagestring, message, config_file.hello_there_path, variable)
+        if sounds == 1:
+            await checksoundreaction('hello there', messagestring, message, config_file.hello_there_path)
         await checkwordreaction('hello there', 'None', messagestring, message, config_file.general_kenobi_path, 'General Kenobi')
     elif 'idk' in messagestring:
         await checkwordreaction('idk', 'None', messagestring, message, 'None', '¯\_(ツ)_/¯')
@@ -135,92 +136,92 @@ async def messagereply(message, messagestring):
         if random.randint(0, 10) <= 1:
             await checkwordreaction('pauze', 'None', messagestring, message, 'None', 'Is het een pauze als hij niet uitloopt?')
     elif 'hekkie' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "hekkie")
-        await checksoundreaction('hekkie', messagestring, message, config_file.hekkie_mp3_path, variable)
+        if sounds == 1:
+            await checksoundreaction('hekkie', messagestring, message, config_file.hekkie_mp3_path)
         await checkwordreaction('hekkie', 'None', messagestring, message, config_file.hekkie_gif_path, 'None')
     elif '#' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "hekkie")
-        await checksoundreaction('#', messagestring, message, config_file.hekkie_mp3_path, variable)
+        if sounds == 1:
+            await checksoundreaction('#', messagestring, message, config_file.hekkie_mp3_path)
         await checkwordreaction('#', 'None', messagestring, message, config_file.hekkie_gif_path, 'None')
     elif 'brain' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "brain")
-        await checksoundreaction('brain', messagestring, message, config_file.brain_aneurysm_mp3_path, variable)
+        if sounds == 1:
+            await checksoundreaction('brain', messagestring, message, config_file.brain_aneurysm_mp3_path)
         await checkwordreaction('brain', 'None', messagestring, message, config_file.brain_aneurysm_mp4_path, 'None')
     elif 'john cena' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "johncena")
-        await checksoundreaction('john cena', messagestring, message, config_file.john_cena_path, variable)
+        if sounds == 1:
+            await checksoundreaction('john cena', messagestring, message, config_file.john_cena_path)
     elif 'buffalo' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "buffalo")
-        await checksoundreaction('buffalo', messagestring, message, config_file.buffalo_path, variable)
+        if sounds == 1:
+            await checksoundreaction('buffalo', messagestring, message, config_file.buffalo_path)
     elif 'afsluiten' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "afsluiten")
-        await checksoundreaction('afsluiten', messagestring, message, config_file.afsluiten_path, variable)
+        if sounds == 1:
+            await checksoundreaction('afsluiten', messagestring, message, config_file.afsluiten_path)
     elif 'child' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "child")
-        await checksoundreaction('child', messagestring, message, config_file.child_mp3_path, variable)
+        if sounds == 1:
+            await checksoundreaction('child', messagestring, message, config_file.child_mp3_path)
         await checkwordreaction('child', 'None', messagestring, message, config_file.child_mp4_path, 'None')
     elif 'cola' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "cola")
-        await checksoundreaction('cola', messagestring, message, config_file.cola_path, variable)
+        if sounds == 1:
+            await checksoundreaction('cola', messagestring, message, config_file.cola_path)
     elif 'torture' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "torture")
-        await checksoundreaction('torture', messagestring, message, config_file.torture_path, variable)
+        if sounds == 1:
+            await checksoundreaction('torture', messagestring, message, config_file.torture_path)
     elif 'gorp' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "gorp")
-        await checksoundreaction('gorp', messagestring, message, config_file.gorp_path, variable)
+        if sounds == 1:
+            await checksoundreaction('gorp', messagestring, message, config_file.gorp_path)
     elif 'hehe' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "hehe")
-        await checksoundreaction('hehe', messagestring, message, config_file.hehe_path, variable)
+        if sounds == 1:
+            await checksoundreaction('hehe', messagestring, message, config_file.hehe_path)
     elif 'helicopter' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "helicopter")
-        await checksoundreaction('helicopter', messagestring, message, config_file.helicopter_path, variable)
+        if sounds == 1:
+            await checksoundreaction('helicopter', messagestring, message, config_file.helicopter_path)
     elif 'boss' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "boss")
-        await checksoundreaction('boss', messagestring, message, config_file.hey_boss_path, variable)
+        if sounds == 1:
+            await checksoundreaction('boss', messagestring, message, config_file.hey_boss_path)
     elif 'home' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "home")
-        await checksoundreaction('home', messagestring, message, config_file.indiehome_mp3_path, variable)
+        if sounds == 1:
+            await checksoundreaction('home', messagestring, message, config_file.indiehome_mp3_path)
         await checkwordreaction('home', 'None', messagestring, message, config_file.indiehome_mp4_path, 'None')
     elif 'lach' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "lachje")
-        await checksoundreaction('lach', messagestring, message, config_file.lachje_path, variable)
+        if sounds == 1:
+            await checksoundreaction('lach', messagestring, message, config_file.lachje_path)
     elif 'lemons' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "lemons")
-        await checksoundreaction('lemons', messagestring, message, config_file.lemons_path, variable)
+        if sounds == 1:
+            await checksoundreaction('lemons', messagestring, message, config_file.lemons_path)
     elif 'mcdonalds' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "mcdonalds")
-        await checksoundreaction('mcdonalds', messagestring, message, config_file.mcdonalds_path, variable)
+        if sounds == 1:
+            await checksoundreaction('mcdonalds', messagestring, message, config_file.mcdonalds_path)
     elif 'misinput' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "misinput")
-        await checksoundreaction('misinput', messagestring, message, config_file.misinput_path, variable)
+        if sounds == 1:
+            await checksoundreaction('misinput', messagestring, message, config_file.misinput_path)
     elif 'omgekeerd' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "omgekeerd")
-        await checksoundreaction('omgekeerd', messagestring, message, config_file.omgekeerd_path, variable)
+        if sounds == 1:
+            await checksoundreaction('omgekeerd', messagestring, message, config_file.omgekeerd_path)
     elif 'raid' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "raid")
-        await checksoundreaction('raid', messagestring, message, config_file.raid_path, variable)
+        if sounds == 1:
+            await checksoundreaction('raid', messagestring, message, config_file.raid_path)
     elif 'sausage' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "sausage")
-        await checksoundreaction('sausage', messagestring, message, config_file.sausage_path, variable)
+        if sounds == 1:
+            await checksoundreaction('sausage', messagestring, message, config_file.sausage_path)
     elif 'raining' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "raining")
-        await checksoundreaction('raining', messagestring, message, config_file.raining_path, variable)
+        if sounds == 1:
+            await checksoundreaction('raining', messagestring, message, config_file.raining_path)
     elif 'uvu' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "uvu")
-        await checksoundreaction('uvu', messagestring, message, config_file.uvu_path, variable)
+        if sounds == 1:
+            await checksoundreaction('uvu', messagestring, message, config_file.uvu_path)
     elif 'vietnamese' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "vietnamese")
-        await checksoundreaction('vietnamese', messagestring, message, config_file.vietnamese_path, variable)
+        if sounds == 1:
+            await checksoundreaction('vietnamese', messagestring, message, config_file.vietnamese_path)
     elif 'voicemail' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "voicemail")
-        await checksoundreaction('voicemail', messagestring, message, config_file.voicemail_path, variable)
+        if sounds == 1:
+            await checksoundreaction('voicemail', messagestring, message, config_file.voicemail_path)
     elif 'burgir' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "burgir")
-        await checksoundreaction('burgir', messagestring, message, config_file.burgir_mp3_path, variable)
+        if sounds == 1:
+            await checksoundreaction('burgir', messagestring, message, config_file.burgir_mp3_path)
         if message.guild.id == config_file.yorbenguildid:
             await checkwordreaction('burgir', 'None', messagestring, message, config_file.burgir_mp4_path, 'None')
     elif 'r2d2' in messagestring:
-        variable = await turnonoff.read(message.guild.id, "r2d2")
-        await checksoundreaction('r2d2', messagestring, message, config_file.r2d2_path, variable)
+        if sounds == 1:
+            await checksoundreaction('r2d2', messagestring, message, config_file.r2d2_path)
     else:
         return
