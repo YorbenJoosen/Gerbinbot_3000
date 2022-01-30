@@ -453,8 +453,13 @@ async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
         await ctx.send('You wrote the command wrong, you idiot!')
     elif isinstance(error, MissingPermissions):
-        await ctx.send('You do not have the required permissions!')
+        await ctx.reply('You do not have the required permissions!')
 
+
+@bot.event
+async def on_application_command_error(ctx, error):
+    if isinstance(error, MissingPermissions):
+        await ctx.respond('You do not have the required permissions!')
 
 bot.add_cog(Hiddencommands(bot))
 bot.add_cog(Musiccommands(bot))
