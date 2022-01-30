@@ -1,7 +1,7 @@
 import datetime
 
-from discord import SlashCommandGroup, Option
-from discord.ext.commands import has_guild_permissions, MissingPermissions
+from discord import Option
+from discord.ext.commands import has_guild_permissions, MissingPermissions, CommandNotFound
 
 import config_file
 import discord
@@ -450,7 +450,7 @@ async def on_guild_remove(guild):
 
 @bot.event
 async def on_command_error(ctx, error):
-    if isinstance(error, commands.CommandNotFound):
+    if isinstance(error, CommandNotFound):
         await ctx.send('You wrote the command wrong, you idiot!')
     elif isinstance(error, MissingPermissions):
         await ctx.reply('You do not have the required permissions!')
