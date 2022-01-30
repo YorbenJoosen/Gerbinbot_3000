@@ -1,7 +1,7 @@
 import datetime
 
-from discord import SlashCommandGroup, Option
-from discord.ext.commands import has_guild_permissions, MissingPermissions
+from discord import Option
+from discord.ext.commands import has_guild_permissions, MissingPermissions, CommandNotFound
 
 import config_file
 import discord
@@ -165,7 +165,7 @@ class Usefulcommands(commands.Cog):
 
     @commands.slash_command(name='turnoff', description='Turn off a certain function.')
     @has_guild_permissions(administrator=True)
-    async def slashturnoff(self, ctx, option: Option(str, "Which function to turn off.", required=True)):
+    async def slashturnoff(self, ctx, option: Option(str, "Which function to turn off.", required=True, choices=config_file.functions)):
         await turnoff.turnoff(ctx, option, 'slash')
 
     # Used to turn on certain options
@@ -176,7 +176,7 @@ class Usefulcommands(commands.Cog):
 
     @commands.slash_command(name='turnon', description='Turn on a certain function.')
     @has_guild_permissions(administrator=True)
-    async def slashturnon(self, ctx, option: Option(str, "Which function to turn on.", required=True)):
+    async def slashturnon(self, ctx, option: Option(str, "Which function to turn on.", required=True, choices=config_file.functions)):
         await turnon.turnon(ctx, option, 'slash')
 
     # Random sound
@@ -450,11 +450,16 @@ async def on_guild_remove(guild):
 
 @bot.event
 async def on_command_error(ctx, error):
-    if isinstance(error, commands.CommandNotFound):
+    if isinstance(error, CommandNotFound):
         await ctx.send('You wrote the command wrong, you idiot!')
     elif isinstance(error, MissingPermissions):
-        await ctx.send('You do not have the required permissions!')
+        await ctx.reply('You do not have the required permissions!')
 
+
+@bot.event
+async def on_application_command_error(ctx, error):
+    if isinstance(error, MissingPermissions):
+        await ctx.respond('You do not have the required permissions!')
 
 bot.add_cog(Hiddencommands(bot))
 bot.add_cog(Musiccommands(bot))

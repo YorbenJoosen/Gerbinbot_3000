@@ -1,3 +1,5 @@
+import discord
+
 from SQL import musicqueue
 
 
@@ -18,7 +20,8 @@ async def queue(ctx, type):
             else:
                 string += str(iterator + 1) + ") " + musiclist[iterator]["title"] + " " + musiclist[iterator]["duration"] + "\n"
                 iterator += 1
+        embed = discord.Embed(title="Queue", color=discord.Color.green(), description=string)
         if type == 'normal':
-            await ctx.reply(string)
+            await ctx.reply(embed=embed)
         elif type == 'slash':
-            await ctx.respond(string)
+            await ctx.respond(embed=embed)
