@@ -225,9 +225,12 @@ async def messagereply(message, messagestring):
     elif 'bruh' in messagestring:
         variable = await turnonoff.read(message.guild.id, "bruh")
         await checksoundreaction('bruh', messagestring, message, config_file.bruh_path, variable)
-    elif 'focus' in messagestring or 'pizza' in messagestring:
+    elif 'focus' in messagestring:
         variable = await turnonoff.read(message.guild.id, "focus")
         await checksoundreaction('focus', messagestring, message, config_file.focus_path, variable)
+    elif 'pizza' in messagestring:
+        variable = await turnonoff.read(message.guild.id, "pizza")
+        await checksoundreaction('pizza', messagestring, message, config_file.focus_path, variable)
     elif 'bark' in messagestring:
         variable = await turnonoff.read(message.guild.id, "bark")
         await checksoundreaction("bark", messagestring, message, config_file.bark_path, variable)
