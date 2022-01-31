@@ -49,12 +49,9 @@ class YTDLSource(discord.PCMVolumeTransformer):
         self.url = data.get('url')
 
     @classmethod
-    async def from_url(cls, url, *, loop=None, stream=True):
-        loop = loop or asyncio.get_event_loop()
-        data = await loop.run_in_executor(None, lambda: ytdl.extract_info(url, download=not stream))
-        if 'entries' in data:
-            data = data['entries'][0]
-        filename = data['url'] if stream else ytdl.prepare_filename(data)
+    async def from_url(cls, url):
+        data = ytdl.extract_info(url, download=False)  # Get data from url and do not download
+        filename = data['url']  # filename = source-url (basically where to play from)
         return cls(discord.FFmpegPCMAudio(filename, **ffmpeg_options), data=data)
 
 
@@ -76,7 +73,7 @@ async def playvideo(ctx):
         seconds = musiclist[0]['duration'].split(':')[2]
         video_length = int(hour) * 3600 + int(minutes) * 60 + int(seconds)
         if skippedornot == 0:
-            player = await YTDLSource.from_url(musiclist[0]['url'], stream=True)
+            player = await YTDLSource.from_url(musiclist[0]['url'])
             ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
         else:
             ctx.voice_client.resume()
