@@ -9,4 +9,4 @@ async def memberleft(member):
     await text.delete(userid, guildid)
     await camera.delete(userid, guildid)
     await stream.delete(userid, guildid)
-    await quotes.delete(userid, guildid)
+    # await quotes.delete(userid, guildid)

@@ -11,4 +11,4 @@ async def guildleave(guild):
     await guildleft.leaderboardtext(guild)
     await guildleft.leaderboardcamera(guild)
     await guildleft.leaderboarstream(guild)
-    await guildleft.quotes(guild)
+    # await guildleft.quotes(guild)
