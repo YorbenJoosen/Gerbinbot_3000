@@ -6,23 +6,20 @@ import config_file
 from SQL import musicqueue, loops, skipped, disconnected, turnonoff
 
 ytdl_format_options = {
-    'format': 'bestaudio/best',
-    'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
-    'restrictfilenames': True,
-    'noplaylist': True,
-    'nocheckcertificate': True,
-    'ignoreerrors': True,
-    'logtostderr': False,
-    'quiet': True,
-    'no_warnings': True,
-    'default_search': 'auto',
-    'source_address': '0.0.0.0',
-    'cookiefile': config_file.cookie_path,
-    'cachedir': False
+    'format': 'bestaudio/best',  # Get best audio
+    'noplaylist': True,  # Download single video instead of a playlist if in doubt.
+    'nocheckcertificate': True,  # Do not verify SSL certificates
+    'ignoreerrors': True,  # Ignore errors
+    'logtostderr': False,  # Log messages to stderr instead of stdout.
+    'quiet': True,  # No output/print
+    'no_warnings': True,  # Ignore warnings
+    'default_search': 'auto',  # Prepend this string if an input url is not valid, auto for elaborate guessing
+    'cookiefile': config_file.cookie_path,  # cookiefile to be able to play age restricted videos
+    'cachedir': False  # Disabled cache to prevent HTTP 403 errors
 }
 ffmpeg_options = {
     'options': '-vn',
-    'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 15'
+    'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 15'  # Auto reconnect, otherwise songs randomly stop
 }
 ytdl = youtube_dl.YoutubeDL(ytdl_format_options)
 sleeptask = 0
