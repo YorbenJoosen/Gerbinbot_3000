@@ -201,5 +201,7 @@ async def messagereply(message, messagestring):
             await checksoundreaction('bark', messagestring, message, config_file.bark_mp3_path)
         if replies == 1:
             await checkwordreaction('bark', 'None', messagestring, message, config_file.bark_mp4_path, 'None')
+    elif 'mand' in messagestring and sounds == 1:
+        await checksoundreaction('mand', messagestring, message, config_file.mand_path)
     else:
         return
