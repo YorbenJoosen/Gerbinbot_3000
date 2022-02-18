@@ -2,7 +2,7 @@ import discord
 from SQL import camera
 
 
-async def leaderboardcamera(ctx, user: str, type):
+async def leaderboardcamera(ctx, user, type):
     cameralist = await camera.read()
     string = ''
     cameralist = sorted(cameralist, key=lambda i: i['score'], reverse=True)
