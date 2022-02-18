@@ -15,7 +15,8 @@ from Random import tutturu, gamedeals, copypasta, meme, gayrate, simprate, dickl
     repeat, rps
 from SQL import loops, musicqueue, pause, skipped, disconnected
 from Useful import password, info, helpcommands, leaderboardvoice, leaderboardtext, addquote, sendquotes, calculate, \
-    leaderboardcamera, leaderboardstream, leaderboardzevensprong, addzevensprong, turnoff, turnon, randomsound
+    leaderboardcamera, leaderboardstream, leaderboardzevensprong, addzevensprong, turnoff, turnon, randomsound, \
+    resetleaderboard
 
 discordtoken = config_file.bot_token
 intents = discord.Intents.all()
@@ -187,6 +188,17 @@ class Usefulcommands(commands.Cog):
     @commands.slash_command(name='randomsound', description='Plays a random sound.')
     async def slashrandomsound(self, ctx):
         await randomsound.randomsound(ctx, 'slash')
+
+    # Used to reset leaderboards
+    @commands.command(aliases=["reset"])
+    @has_guild_permissions(administrator=True)
+    async def resetleaderboard(self, ctx, *, option):
+        await resetleaderboard.resetleaderboard(ctx, option, 'normal')
+
+    @commands.slash_command(name='reset', description="Reset a leaderboard")
+    @has_guild_permissions(administrator=True)
+    async def slashresetleaderboard(self, ctx, option: Option(str, "Which leaderboard do you want to reset", required=True, choices=['voice', 'text', 'camera', 'stream', 'all'])):
+        await resetleaderboard.resetleaderboard(ctx, option, 'slash')
 
 
 class Randomcommands(commands.Cog):
