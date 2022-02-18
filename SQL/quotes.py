@@ -21,3 +21,12 @@ async def write(quote, userid, serverid):
     values = (quote, userid, serverid)
     sql_cursor.execute(command, values)
     sql_connection.commit()
+
+
+async def delete(userid, serverid):
+    sql_connection = pyodbc.connect(config_file.sql_connection_string)
+    sql_cursor = sql_connection.cursor()
+    command = "delete from quotes where serverid = ? and userid = ?"
+    values = (serverid, userid)
+    sql_cursor.execute(command, values)
+    sql_connection.commit()

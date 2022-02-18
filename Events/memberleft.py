@@ -1,4 +1,4 @@
-from SQL import rockpaperscissors, voice, text, camera, stream
+from SQL import rockpaperscissors, voice, text, camera, stream, quotes
 
 
 async def memberleft(member):
@@ -9,3 +9,4 @@ async def memberleft(member):
     await text.delete(userid, guildid)
     await camera.delete(userid, guildid)
     await stream.delete(userid, guildid)
+    # await quotes.delete(userid, guildid)

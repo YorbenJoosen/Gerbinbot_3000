@@ -82,3 +82,12 @@ async def leaderboardtext(guild):
     command = "delete from leaderboardtext where idserver = ?"
     sql_cursor.execute(command, serverid)
     sql_connection.commit()
+
+
+async def quotes(guild):
+    serverid = guild.id
+    sql_connection = pyodbc.connect(config_file.sql_connection_string)
+    sql_cursor = sql_connection.cursor()
+    command = "delete from quotes where serverid = ?"
+    sql_cursor.execute(command, serverid)
+    sql_connection.commit()

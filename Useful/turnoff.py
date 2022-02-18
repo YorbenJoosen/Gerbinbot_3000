@@ -50,3 +50,16 @@ async def turnoff(ctx, option, type):
                 await ctx.reply("Dad was already turned off.")
             elif type == 'slash':
                 await ctx.respond("Dad was already turned off.")
+    elif option == "replies":
+        variable = await turnonoff.read(serverid, "replies")
+        if variable == 1:
+            await turnonoff.update(0, serverid, 'replies')
+            if type == 'normal':
+                await ctx.reply("Replies have been turned off.")
+            elif type == 'slash':
+                await ctx.respond("Replies have been turned off.")
+        else:
+            if type == 'normal':
+                await ctx.reply("Replies were already turned off.")
+            elif type == 'slash':
+                await ctx.respond("Replies were already turned off.")

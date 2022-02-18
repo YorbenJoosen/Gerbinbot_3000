@@ -6,21 +6,20 @@ import config_file
 from SQL import musicqueue, loops, skipped, disconnected, turnonoff
 
 ytdl_format_options = {
-    'format': 'bestaudio/best',
-    'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
-    'restrictfilenames': True,
-    'noplaylist': True,
-    'nocheckcertificate': True,
-    'ignoreerrors': True,
-    'logtostderr': False,
-    'quiet': True,
-    'no_warnings': True,
-    'default_search': 'auto',
-    'source_address': '0.0.0.0'  # bind to ipv4 since ipv6 addresses cause issues sometimes
+    'format': 'bestaudio/best',  # Get best audio
+    'noplaylist': True,  # Download single video instead of a playlist if in doubt.
+    'nocheckcertificate': True,  # Do not verify SSL certificates
+    'ignoreerrors': True,  # Ignore errors
+    'logtostderr': False,  # Log messages to stderr instead of stdout.
+    'quiet': True,  # No output/print
+    'no_warnings': True,  # Ignore warnings
+    'default_search': 'auto',  # Prepend this string if an input url is not valid, auto for elaborate guessing
+    'cookiefile': config_file.cookie_path,  # cookiefile to be able to play age restricted videos
+    'cachedir': False  # Disabled cache to prevent HTTP 403 errors
 }
 ffmpeg_options = {
     'options': '-vn',
-    'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 15'
+    'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 15'  # Auto reconnect, otherwise songs randomly stop
 }
 ytdl = youtube_dl.YoutubeDL(ytdl_format_options)
 sleeptask = 0
@@ -50,12 +49,9 @@ class YTDLSource(discord.PCMVolumeTransformer):
         self.url = data.get('url')
 
     @classmethod
-    async def from_url(cls, url, *, loop=None, stream=True):
-        loop = loop or asyncio.get_event_loop()
-        data = await loop.run_in_executor(None, lambda: ytdl.extract_info(url, download=not stream))
-        if 'entries' in data:
-            data = data['entries'][0]
-        filename = data['url'] if stream else ytdl.prepare_filename(data)
+    async def from_url(cls, url):
+        data = ytdl.extract_info(url, download=False)  # Get data from url and do not download
+        filename = data['url']  # filename = source-url (basically where to play from)
         return cls(discord.FFmpegPCMAudio(filename, **ffmpeg_options), data=data)
 
 
@@ -77,7 +73,7 @@ async def playvideo(ctx):
         seconds = musiclist[0]['duration'].split(':')[2]
         video_length = int(hour) * 3600 + int(minutes) * 60 + int(seconds)
         if skippedornot == 0:
-            player = await YTDLSource.from_url(musiclist[0]['url'], stream=True)
+            player = await YTDLSource.from_url(musiclist[0]['url'])
             ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
         else:
             ctx.voice_client.resume()
