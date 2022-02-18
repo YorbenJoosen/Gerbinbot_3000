@@ -11,13 +11,6 @@ async def leaderboardcamera(ctx, user: str, type):
     members = ctx.guild.members
     length = 10
     if user:
-        # TODO WIP
-        if user.isnumeric():
-            index = int(user)
-            if index < len(cameralist):
-                if type == 'slash':
-                    await ctx.send()
-        # TODO WIP
         userid = 0
         if type == 'normal':
             userid = user.split('<')[1]
