@@ -2,7 +2,7 @@ import discord
 from SQL import camera
 
 
-async def leaderboardcamera(ctx, user, type):
+async def leaderboardcamera(ctx, user: str, type):
     cameralist = await camera.read()
     string = ''
     cameralist = sorted(cameralist, key=lambda i: i['score'], reverse=True)
@@ -11,6 +11,13 @@ async def leaderboardcamera(ctx, user, type):
     members = ctx.guild.members
     length = 10
     if user:
+        # TODO WIP
+        if user.isnumeric():
+            index = int(user)
+            if index < len(cameralist):
+                if type == 'slash':
+                    await ctx.send()
+        # TODO WIP
         userid = 0
         if type == 'normal':
             userid = user.split('<')[1]

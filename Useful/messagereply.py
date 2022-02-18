@@ -229,12 +229,21 @@ async def messagereply(message, messagestring):
     elif 'focus' in messagestring:
         if sounds == 1:
             await checksoundreaction('focus', messagestring, message, config_file.focus_path)
+        await checkwordreaction('focus', 'None', messagestring, message, config_file.pizza_mp4_path, 'None')
     elif 'pizza' in messagestring:
         if sounds == 1:
             await checksoundreaction('pizza', messagestring, message, config_file.focus_path)
+        await checkwordreaction('pizza', 'None', messagestring, message, config_file.pizza_mp4_path, 'None')
+    elif 'nutella' in messagestring:
+        if sounds == 1:
+            await checksoundreaction('nutella', messagestring, message, config_file.nutella_mp3_path)
+        await checkwordreaction('nutella', 'None', messagestring, message, config_file.nutella_mp4_path, 'None')
     elif 'bark' in messagestring:
         if sounds == 1:
             await checksoundreaction('bark', messagestring, message, config_file.bark_mp3_path)
         await checkwordreaction('bark', 'None', messagestring, message, config_file.bark_mp4_path, 'None')
+    elif 'auwch' in messagestring:
+        if sounds == 1:
+            await checksoundreaction('auwch', messagestring, message, config_file.emotional_damage_mp3_path)
     else:
         return
