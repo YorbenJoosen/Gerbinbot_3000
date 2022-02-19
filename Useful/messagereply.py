@@ -212,7 +212,7 @@ async def messagereply(message, messagestring):
     elif 'nutella' in messagestring:
         if sounds == 1:
             await checksoundreaction('nutella', messagestring, message, config_file.nutella_mp3_path)
-        elif replies == 1:
+        if replies == 1:
             await checkwordreaction('nutella', 'None', messagestring, message, config_file.nutella_mp4_path, 'None')
     elif 'auwch' in messagestring and sounds == 1:
         await checksoundreaction('auwch', messagestring, message, config_file.emotional_damage_mp3_path)
