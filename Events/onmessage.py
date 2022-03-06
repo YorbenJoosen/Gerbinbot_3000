@@ -63,7 +63,6 @@ async def onmessage(message, emojiguild):
     # If the bot sees a reddit link in a message, it will try to send the image from this post
     if 'reddit.com' in message.content and not message.author.bot:
         link = message.content
-        await message.delete()
         # If the link  is shared via a phone we need to change the link so we can use it
         if 'source=share' in link:
             if 'android' in link:
