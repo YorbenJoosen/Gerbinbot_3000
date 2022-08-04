@@ -10,7 +10,7 @@ from discord.ext import commands
 from Events import voice_update, onmessage, memberleft, guildjoin, guildleave
 from Hidden import invite, deleteinvite
 from Music import play, loopqueue, loopsong, disconnect, clearqueue, pausemusic, resumemusic, queue, shuffle, skip, \
-    skipto
+    skipto, record
 from Random import tutturu, gamedeals, copypasta, meme, gayrate, simprate, dicklength, vaginawidth, boobsize, coinflip, \
     repeat, rps
 from SQL import loops, musicqueue, pause, skipped, disconnected
@@ -416,6 +416,15 @@ class Musiccommands(commands.Cog):
     @commands.slash_command(name='skipto', description='Skips to a certain spot in the queue.')
     async def slashskipto(self, ctx, number: Option(int, "Position of the song.", required=True)):
         await skipto.skipto(ctx, number, 'slash')
+
+    # Records the audio
+    @commands.command()
+    async def record(self, ctx, *, option):
+        await record.record(ctx, option, 'normal')
+
+    @commands.slash_command(name='record', description='Start or stop a recording.')
+    async def slashrecord(self, ctx, option: Option(str, 'Give your answer.', choices=['start', 'stop'])):
+        await record.record(ctx, option, 'slash')
 
 
 class Hiddencommands(commands.Cog):

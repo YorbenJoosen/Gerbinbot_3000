@@ -1,5 +1,7 @@
 import datetime
 
+import discord
+
 from SQL import musicqueue, loops, pause, voice, skipped, disconnected, camera, stream
 
 
@@ -49,6 +51,11 @@ async def voice_update(member, before, after):
                     i += 1
         # If a user disconnects, all counters stop and the scores are refreshed
         if before.channel and not after.channel:
+            # Check if only bot remains in channel, if so we disconnect
+            if len(before.channel.members) == 1 and before.channel.members[0].bot:
+                voice_client = before.channel.guild.voice_client
+                if voice_client:
+                    await voice_client.disconnect()
             i = 0
             voicelist = await voice.read()
             endtime = datetime.datetime.now()
@@ -93,6 +100,12 @@ async def voice_update(member, before, after):
                         i = len(streamlist)  # If we found the right user from the right server and updated his score and endtime, we get out of the loop
                     else:
                         i += 1  # If the user and server don't match, we keep looping trough the list
+        if before.channel.id != after.channel.id:
+            # Check if only bot remains in channel, if so we disconnect
+            if len(before.channel.members) == 1 and before.channel.members[0].bot:
+                voice_client = before.channel.guild.voice_client
+                if voice_client:
+                    await voice_client.disconnect()
         # If a user starts their camera, bot.leaderboardcamera will begin
         if not before.self_video and after.self_video:
             i = 0
