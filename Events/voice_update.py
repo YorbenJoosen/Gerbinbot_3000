@@ -2,6 +2,7 @@ import datetime
 
 import discord
 
+from Music import record
 from SQL import musicqueue, loops, pause, voice, skipped, disconnected, camera, stream
 
 
@@ -15,6 +16,7 @@ async def voice_update(member, before, after):
             await pause.update(0, serverid)
             await skipped.update(0, serverid)
             await disconnected.update(1, serverid)
+            record.sleeptask.cancel()
     else:  # If a user joins a channel or goes unmuted or leaves the afk channel, the bot.leaderboardvoice will start counting
         if (not before.channel and after.channel) or (before.self_mute and not after.self_mute and after.channel) or (before.afk and not after.afk and after.channel):
             i = 0

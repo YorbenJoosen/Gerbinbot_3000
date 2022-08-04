@@ -31,15 +31,15 @@ async def record(ctx, option, type):
                 vc = await voice.channel.connect()
                 connections.update({ctx.guild.id: vc})
                 vc.start_recording(discord.sinks.MP3Sink(), finished_callback, ctx.channel)
+                if type == 'slash':
+                    await ctx.respond("Bot is recording.", ephemeral=True)
+                else:
+                    await ctx.reply("Bot started recording")
                 sleeptask = asyncio.create_task(sleepasyncio(300, vc))
                 try:
                     await sleeptask
                 except asyncio.CancelledError:
                     pass
-                if type == 'slash':
-                    await ctx.respond("Bot is recording.", ephemeral=True)
-                else:
-                    await ctx.reply("Bot started recording")
             elif ctx.author.voice.channel == ctx.voice_client.channel:
                 if type == 'normal':
                     await ctx.reply('Bot is already playing something else.')
