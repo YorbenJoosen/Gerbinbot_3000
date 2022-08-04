@@ -1,5 +1,13 @@
+import asyncio
+
 import discord
 connections = {}
+sleeptask = 0
+
+
+async def sleepasyncio(length, vc):
+    await asyncio.sleep(length)
+    vc.stop_recording()
 
 
 async def finished_callback(sink, channel: discord.TextChannel, *args):
@@ -16,12 +24,18 @@ async def finished_callback(sink, channel: discord.TextChannel, *args):
 
 async def record(ctx, option, type):
     voice = ctx.author.voice
+    global sleeptask
     if voice:
         if option == "start":
             if ctx.voice_client is None:
                 vc = await voice.channel.connect()
                 connections.update({ctx.guild.id: vc})
                 vc.start_recording(discord.sinks.MP3Sink(), finished_callback, ctx.channel)
+                sleeptask = asyncio.create_task(sleepasyncio(300, vc))
+                try:
+                    await sleeptask
+                except asyncio.CancelledError:
+                    pass
                 if type == 'slash':
                     await ctx.respond("Bot is recording.", ephemeral=True)
                 else:
@@ -39,6 +53,7 @@ async def record(ctx, option, type):
         elif option == "stop":
             if ctx.guild.id in connections:
                 vc = connections[ctx.guild.id]
+                sleeptask.cancel()
                 vc.stop_recording()
                 del connections[ctx.guild.id]
                 if type == "slash":
