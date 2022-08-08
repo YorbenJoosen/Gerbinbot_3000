@@ -1,7 +1,6 @@
 import asyncio
 import audioread
 import discord
-import youtube_dl
 import yt_dlp
 
 import config_file
