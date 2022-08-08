@@ -2,7 +2,6 @@ import asyncio
 import audioread
 import discord
 import yt_dlp
-
 import config_file
 from SQL import musicqueue, loops, skipped, disconnected, turnonoff
 
