@@ -28,6 +28,7 @@ async def playsingleurl(ctx, query, type):
         duration = 0
         title = ''
         videoid = video_id(query)
+        print(videoid)
         durationrequest = youtube.videos().list(part='contentDetails', id=videoid)
         durationresponse = durationrequest.execute()
         for item in durationresponse['items']:
@@ -83,7 +84,7 @@ async def playsingleurl(ctx, query, type):
         musiclist = await musicqueue.read(ctx.guild.id)
         if len(musiclist) == 1:
             await playvideo.playvideo(ctx)
-    except discovery.HttpError:
+    except discovery.HttpError as error:
         if type == 'normal':
             await ctx.reply('This is not a correct url.')
         elif type == 'slash':
