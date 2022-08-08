@@ -28,7 +28,6 @@ async def playsingleurl(ctx, query, type):
         duration = 0
         title = ''
         videoid = video_id(query)
-        print(videoid)
         durationrequest = youtube.videos().list(part='contentDetails', id=videoid)
         durationresponse = durationrequest.execute()
         for item in durationresponse['items']:
