@@ -255,7 +255,7 @@ class Randomcommands(commands.Cog):
     async def simprate(self, ctx, *, user=None):
         await simprate.simprate(ctx, 'normal', user, bot)
 
-    @commands.slash_command(guild_ids=[786587999571279932], name='simprate', description='The bot shows your simpness.')
+    @commands.slash_command(name='simprate', description='The bot shows your simpness.')
     async def slashsimprate(self, ctx, user: Option(discord.Member, "Define a user.", required=False)):
         await simprate.simprate(ctx, 'slash', user, bot)
 
@@ -264,7 +264,7 @@ class Randomcommands(commands.Cog):
     async def dicklength(self, ctx, *, user=None):
         await dicklength.dicklength(ctx, 'normal', user, bot)
 
-    @commands.slash_command(guild_ids=[786587999571279932], name='dicklength', description='The bot shows your dicklength.')
+    @commands.slash_command(name='dicklength', description='The bot shows your dicklength.')
     async def slashdicklength(self, ctx, user: Option(discord.Member, "Define a user.", required=False)):
         await dicklength.dicklength(ctx, 'slash', user, bot)
 
@@ -273,7 +273,7 @@ class Randomcommands(commands.Cog):
     async def vaginawidth(self, ctx, *, user=None):
         await vaginawidth.vaginawidth(ctx, 'normal', user, bot)
 
-    @commands.slash_command(guild_ids=[786587999571279932], name='vaginawidth', description='The bot shows your vaginawidth.')
+    @commands.slash_command(name='vaginawidth', description='The bot shows your vaginawidth.')
     async def slashvaginawidth(self, ctx, user: Option(discord.Member, "Define a user.", required=False)):
         await vaginawidth.vaginawidth(ctx, 'slash', user, bot)
 
@@ -282,7 +282,7 @@ class Randomcommands(commands.Cog):
     async def boobsize(self, ctx, *, user=None):
         await boobsize.boobsize(ctx, 'normal', user, bot)
 
-    @commands.slash_command(guild_ids=[786587999571279932], name='boobsize', description='The bot shows your boobsize.')
+    @commands.slash_command(name='boobsize', description='The bot shows your boobsize.')
     async def slashboobsize(self, ctx, user: Option(discord.Member, "Define a user.", required=False)):
         await boobsize.boobsize(ctx, 'slash', user, bot)
 
@@ -291,7 +291,7 @@ class Randomcommands(commands.Cog):
     async def coinflip(self, ctx):
         await coinflip.coinflip(ctx, 'normal')
 
-    @commands.slash_command(guild_ids=[786587999571279932], name='coinflip', description='The bot flips a coin for you.')
+    @commands.slash_command(name='coinflip', description='The bot flips a coin for you.')
     async def slashcoinflip(self, ctx):
         await coinflip.coinflip(ctx, 'slash')
 
@@ -300,7 +300,7 @@ class Randomcommands(commands.Cog):
     async def repeat(self, ctx, *, message):
         await repeat.repeat(ctx, message, 'normal')
 
-    @commands.slash_command(guild_ids=[786587999571279932], name='repeat', descirption='The bot repeats your message.')
+    @commands.slash_command(name='repeat', descirption='The bot repeats your message.')
     async def slashrepeat(self, ctx, *, message: Option(str, 'The message.', required=True)):
         await repeat.repeat(ctx, message, 'slash')
 
@@ -309,7 +309,7 @@ class Randomcommands(commands.Cog):
     async def rps(self, ctx, *, answer):
         await rps.rps(ctx, answer, 'normal')
 
-    @commands.slash_command(guild_ids=[786587999571279932], name='rps', description='Play rock, paper, scissors against the bot.')
+    @commands.slash_command(name='rps', description='Play rock, paper, scissors against the bot.')
     async def slashrps(self, ctx, answer: Option(str, 'Give your answer.', choices=['Rock', 'Paper', 'Scissors'])):
         await rps.rps(ctx, answer, 'slash')
 
