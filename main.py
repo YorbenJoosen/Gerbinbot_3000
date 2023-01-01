@@ -132,6 +132,25 @@ class Usefulcommands(commands.Cog):
     async def slashaddzevensprong(self, ctx, amount: Option(int, 'Amount of zevensprongen.', required=True), user: Option(discord.Member, 'Define the user.', required=True)):
         await addzevensprong.addzevensprong(ctx, zevensprongstring='', amount=amount, user=user, type='slash')
 
+    # Prints the koffie leaderboard
+    @commands.command(aliases=["coffee"])
+    async def leaderboardcoffee(self, ctx, *, user=None):
+        await leaderboardcoffee.leaderboardcoffee(ctx, user, bot, 'normal')
+
+
+    @commands.slash_command(name='leaderbordcoffee', description='The bot sends the coffee leaderboard.')
+    async def slashleaderboardcoffee(self, ctx, user: Option(discord.Member, "Request a certain user.", required=False)):
+        await leaderboardcoffee.leaderboardcoffee(ctx, user, bot, 'slash')
+
+    # Adds a koffie amount to the leaderboard
+    @commands.command(aliases=["addcoffee"])
+    async def addcoffee(self, ctx, *, koffiestring):
+        await addcoffee.addcoffee(ctx, koffiestring, amount=0, user=None, type='normal')
+
+    @commands.slash_command(name='addcoffee', description='Add coffee.')
+    async def addcoffee(self, ctx, amount: Option(int, 'Amount of coffee.', required=True), user: Option(discord.Member, 'Define the user.', required=True)):
+        await addcoffee.addcoffee(ctx, koffiestring='', amount=amount, user=user, type='slash')
+
     # Adds quotes to the database
     @commands.command(aliases=["quotesadd", "addquotes", "quoteadd"])
     async def addquote(self, ctx, *, quotestring):
