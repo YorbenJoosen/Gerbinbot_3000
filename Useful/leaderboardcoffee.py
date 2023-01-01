@@ -10,6 +10,7 @@ async def leaderboardcoffee(ctx, user, bot, type):
     length = 10
     membername = ""
     members = bot.get_all_members()
+    serverid = ctx.guild.id
     if user:
         userid = 0
         if type == 'normal':
@@ -23,14 +24,16 @@ async def leaderboardcoffee(ctx, user, bot, type):
             if member.id == int(userid):
                 membername = member.name
                 break
-        if any(d['userid'] == int(userid)for d in coffeelist):
+        if any(d['userid'] == int(userid) and d['serverid'] == serverid for d in coffeelist):
             while iterator < len(coffeelist):
-                if coffeelist[iterator]['userid'] == int(userid):
+                if coffeelist[iterator]['userid'] == int(userid) and coffeelist[iterator]['serverid'] == serverid:
                     if type == 'normal':
                         await ctx.send(str(iterator + 1) + ") " + membername + ': ' + str(coffeelist[iterator]['score']))
                     elif type == 'slash':
                         await ctx.respond(str(iterator + 1) + ") " + membername + ': ' + str(coffeelist[iterator]['score']))
                     iterator = len(coffeelist)
+                elif streamlist[iterator]['serverid'] != serverid:
+                    del streamlist[iterator]
                 else:
                     iterator += 1
         else:
@@ -39,16 +42,19 @@ async def leaderboardcoffee(ctx, user, bot, type):
             elif type == 'slash':
                 await ctx.respond(membername + " isn't on the coffee leaderboard yet.")
     else:
-        string += 7*":beer:" + "\n"
+        while iterator < len(coffeelist):
+            if coffeelist[iterator]["serverid"] == serverid:
+                iterator += 1
+            else:
+                del coffeelist[iterator]
         if len(coffeelist) < 10:
             length = len(coffeelist)
         for i in range(0, length):
             for member in members:
                 if member.id == coffeelist[i]["userid"]:
-                    membername = member.name
-                    break
-            string += str(i+1) + ") " + membername + ": " + str(coffeelist[i]["score"]) + "\n"
-        embed = discord.Embed(title='coffee leaderboard', color=discord.Color.green(), description=string)
+                    membername = member.display_name
+            string += str(i + 1) + ") " + membername + ": " + str(coffeelist[i]["score"]) + "\n"
+        embed = discord.Embed(title='Coffee leaderboard', color=discord.Color.green(), description=string)
         if type == 'normal':
             await ctx.send(embed=embed)
         elif type == 'slash':
