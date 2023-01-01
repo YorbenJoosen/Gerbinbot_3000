@@ -1,7 +1,7 @@
 from SQL import coffee
 
 
-async def addcoffee(ctx, koffiestring, amount, user, type):
+async def addcoffee(ctx, coffeestring, amount, user, type):
     coffeelist = await coffee.read()
     serverid = ctx.guild.id
     if type == 'normal':

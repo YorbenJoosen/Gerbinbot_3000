@@ -144,12 +144,12 @@ class Usefulcommands(commands.Cog):
 
     # Adds a koffie amount to the leaderboard
     @commands.command(aliases=["addcoffee"])
-    async def addcoffee(self, ctx, *, koffiestring):
-        await addcoffee.addcoffee(ctx, koffiestring, amount=0, user=None, type='normal')
+    async def addcoffee(self, ctx, *, coffeestring):
+        await addcoffee.addcoffee(ctx, coffeestring, amount=0, user=None, type='normal')
 
     @commands.slash_command(name='addcoffee', description='Add coffee.')
     async def addcoffee(self, ctx, amount: Option(int, 'Amount of coffee.', required=True), user: Option(discord.Member, 'Define the user.', required=True)):
-        await addcoffee.addcoffee(ctx, koffiestring='', amount=amount, user=user, type='slash')
+        await addcoffee.addcoffee(ctx, coffeestring='', amount=amount, user=user, type='slash')
 
     # Adds quotes to the database
     @commands.command(aliases=["quotesadd", "addquotes", "quoteadd"])
