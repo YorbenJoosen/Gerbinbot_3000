@@ -6,7 +6,7 @@ async def addcoffee(ctx, coffeestring, amount, user, type):
     serverid = ctx.guild.id
     if type == 'normal':
         await ctx.message.delete()
-        amount = koffiestring.split('<')[0]
+        amount = coffeestring.split('<')[0]
         if amount == '':
             await ctx.send("You forgot to mention the amount")
         else:
@@ -29,7 +29,7 @@ async def addcoffee(ctx, coffeestring, amount, user, type):
     elif type == 'slash':
         userid = user.id
         i = 0
-        if len(coffeelist == 0):
+        if len(coffeelist) == 0:
             await coffee.write(int(userid), amount, serverid)
         while i < len(coffeelist):
             if int(userid) == coffeelist[i]["userid"] and int(serverid) == coffeelist[i]["serverid"]:

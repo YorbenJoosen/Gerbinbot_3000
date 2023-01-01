@@ -16,7 +16,7 @@ from Random import tutturu, gamedeals, copypasta, meme, gayrate, simprate, dickl
 from SQL import loops, musicqueue, pause, skipped, disconnected
 from Useful import password, info, helpcommands, leaderboardvoice, leaderboardtext, addquote, sendquotes, calculate, \
     leaderboardcamera, leaderboardstream, leaderboardzevensprong, addzevensprong, turnoff, turnon, randomsound, \
-    resetleaderboard
+    resetleaderboard, leaderboardcoffee, addcoffee
 
 discordtoken = config_file.bot_token
 intents = discord.Intents.all()

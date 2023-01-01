@@ -91,3 +91,12 @@ async def quotes(guild):
     command = "delete from quotes where serverid = ?"
     sql_cursor.execute(command, serverid)
     sql_connection.commit()
+
+
+async def leaderboardcoffee(guild):
+    serverid = guild.id
+    sql_connection = pyodbc.connect(config_file.sql_connection_string)
+    sql_cursor = sql_connection.cursor()
+    command = "delete from leaderboardcoffee where serverid = ?"
+    sql_cursor.execute(command, serverid)
+    sql_connection.commit()
