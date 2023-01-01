@@ -29,6 +29,8 @@ async def addcoffee(ctx, koffiestring, amount, user, type):
     elif type == 'slash':
         userid = user.id
         i = 0
+        if len(coffeelist == 0):
+            await coffee.write(int(userid), amount, serverid)
         while i < len(coffeelist):
             if int(userid) == coffeelist[i]["userid"] and int(serverid) == coffeelist[i]["serverid"]:
                 amount += coffeelist[i]["score"]
