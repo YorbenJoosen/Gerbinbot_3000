@@ -1,9 +1,10 @@
 from SQL import coffee
 
 
-async def addcoffee(ctx, coffeestring, amount, user, type):
+async def addcoffee(ctx, coffeestring, amount, type):
     coffeelist = await coffee.read()
     serverid = ctx.guild.id
+    user = ctx.user
     if type == 'normal':
         await ctx.message.delete()
         amount = coffeestring.split('<')[0]

@@ -9,7 +9,7 @@ async def leaderboardcoffee(ctx, user, bot, type):
     iterator = 0
     length = 10
     membername = ""
-    members = bot.get_all_members()
+    members = ctx.guild.members
     serverid = ctx.guild.id
     if user:
         userid = 0
@@ -32,8 +32,8 @@ async def leaderboardcoffee(ctx, user, bot, type):
                     elif type == 'slash':
                         await ctx.respond(str(iterator + 1) + ") " + membername + ': ' + str(coffeelist[iterator]['score']))
                     iterator = len(coffeelist)
-                elif streamlist[iterator]['serverid'] != serverid:
-                    del streamlist[iterator]
+                elif coffeelist[iterator]['serverid'] != serverid:
+                    del coffeelist[iterator]
                 else:
                     iterator += 1
         else:
